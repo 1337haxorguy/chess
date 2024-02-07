@@ -58,7 +58,6 @@ public class Chess {
 		return null;
 	}
 
-	static Piece[][] gameBoard = new Piece[8][8];
 
 	
 	
