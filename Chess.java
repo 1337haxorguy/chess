@@ -51,6 +51,7 @@ public class Chess {
 
 		//hi 
 		//hi 2
+		// hi 3
 		/* FILL IN THIS METHOD */
 		
 		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
