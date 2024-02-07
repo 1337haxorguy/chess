@@ -67,9 +67,22 @@ public class Chess {
 	 */
 	public static void start() {
 
-		for (int i = 1; i <= 8; i++) {
+		pieces = new ArrayList<>();
+
+		for (int i = 1; i < 7; i++) {
 			ReturnPiece tempPawn = new ReturnPiece();
+			temp.pieceFile = 2;
+			temp.pieceRank = (char) (i + 'a');
+			temp.pieceType = WP;
 		}
+
+		for (int i = 1; i < 7; i++) {
+			ReturnPiece tempPawn = new ReturnPiece();
+			temp.pieceFile = 2;
+			temp.pieceRank = (char) (i + 'a');
+			temp.pieceType = BP;
+		}
+
 		/* FILL IN THIS METHOD */
 	}
 }
