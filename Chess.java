@@ -34,6 +34,8 @@ class ReturnPlay {
 	Message message;
 }
 
+
+
 public class Chess {
 	
 	enum Player { white, black }
@@ -49,21 +51,25 @@ public class Chess {
 	 */
 	public static ReturnPlay play(String move) {
 
-		//hi 
-
-		// hi 3
 		/* FILL IN THIS METHOD */
 		
 		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
 		/* WHEN YOU FILL IN THIS METHOD, YOU NEED TO RETURN A ReturnPlay OBJECT */
 		return null;
 	}
+
+	static Piece[][] gameBoard = new Piece[8][8];
+
 	
 	
 	/**
 	 * This method should reset the game, and start from scratch.
 	 */
 	public static void start() {
+
+		for (int i = 1; i <= 8; i++) {
+			ReturnPiece tempPawn = new ReturnPiece();
+		}
 		/* FILL IN THIS METHOD */
 	}
 }
