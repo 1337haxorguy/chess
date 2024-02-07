@@ -69,19 +69,61 @@ public class Chess {
 
 		pieces = new ArrayList<>();
 
-		for (int i = 1; i < 7; i++) {
-			ReturnPiece tempPawn = new ReturnPiece();
-			temp.pieceFile = 2;
-			temp.pieceRank = (char) (i + 'a');
-			temp.pieceType = WP;
-		}
 
-		for (int i = 1; i < 7; i++) {
-			ReturnPiece tempPawn = new ReturnPiece();
-			temp.pieceFile = 2;
-			temp.pieceRank = (char) (i + 'a');
-			temp.pieceType = BP;
-		}
+		ReturnPiece WhitePawn1 = new ReturnPiece();
+		temp.pieceRank = 2;
+		temp.pieceFile = pieceFile.a;
+		temp.pieceType = pieceType.WP;
+		pieces.add(WhitePawn1);
+
+		ReturnPiece WhitePawn2 = new ReturnPiece();
+		temp.pieceRank = 2;
+		temp.pieceFile = pieceFile.b;
+		temp.pieceType = pieceType.WP;
+		pieces.add(WhitePawn1);
+
+		ReturnPiece WhitePawn3 = new ReturnPiece();
+		temp.pieceRank = 2;
+		temp.pieceFile = pieceFile.c;
+		temp.pieceType = pieceType.WP;
+		pieces.add(WhitePawn1);
+
+		ReturnPiece WhitePawn4 = new ReturnPiece();
+		temp.pieceRank = 2;
+		temp.pieceFile = pieceFile.d;
+		temp.pieceType = pieceType.WP;
+		pieces.add(WhitePawn1);
+
+		ReturnPiece WhitePawn5 = new ReturnPiece();
+		temp.pieceRank = 2;
+		temp.pieceFile = pieceFile.e;
+		temp.pieceType = pieceType.WP;
+		pieces.add(WhitePawn1);
+
+		ReturnPiece WhitePawn6 = new ReturnPiece();
+		temp.pieceRank = 2;
+		temp.pieceFile = pieceFile.d;
+		temp.pieceType = pieceType.WP;
+		pieces.add(WhitePawn1);
+		
+		ReturnPiece WhitePawn7 = new ReturnPiece();
+		temp.pieceRank = 2;
+		temp.pieceFile = pieceFile.e;
+		temp.pieceType = pieceType.WP;
+		pieces.add(WhitePawn1);
+
+		ReturnPiece WhitePawn8 = new ReturnPiece();
+		temp.pieceRank = 2;
+		temp.pieceFile = pieceFile.f;
+		temp.pieceType = pieceType.WP;
+		pieces.add(WhitePawn1);
+
+		
+
+
+		ReturnPiece whiteRook = new ReturnPiece();
+		whiteRook.pieceFile = 1;
+		whiteRook.pieceRank = 'a';
 
 		/* FILL IN THIS METHOD */
 	}
