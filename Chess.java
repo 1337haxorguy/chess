@@ -50,8 +50,7 @@ public class Chess {
 	public static ReturnPlay play(String move) {
 
 		//hi 
-		
-		
+
 		/* FILL IN THIS METHOD */
 		
 		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
