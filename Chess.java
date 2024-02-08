@@ -42,6 +42,22 @@ class ReturnPlay {
 public class Chess {
 	
 	enum Player { white, black }
+
+	static ArrayList<ReturnPiece> pieces = new ArrayList<>();
+
+	static boolean isSpaceEmpty(PieceFile pieceFile, int pieceRank) {
+        for (int i = 0; i < pieces.size(); i++) {
+
+            if (pieces.get(i).pieceFile == pieceFile && pieces.get(i).pieceRank == pieceRank) {
+                return false;
+            }
+
+        }
+
+        return true;
+        
+    }
+
 	
 	/**
 	 * Plays the next move for whichever player has the turn.
@@ -56,6 +72,7 @@ public class Chess {
 
 		/* FILL IN THIS METHOD */
 		
+		
 		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
 		/* WHEN YOU FILL IN THIS METHOD, YOU NEED TO RETURN A ReturnPlay OBJECT */
 		return null;
@@ -67,7 +84,8 @@ public class Chess {
 	 */
 	public static void start() {
 
-		ArrayList<ReturnPiece> pieces = new ArrayList<>();
+
+		pieces.clear();
 
 		ReturnPiece WhitePawn1 = new ReturnPiece();
 		WhitePawn1.pieceRank = 2;
@@ -274,6 +292,8 @@ public class Chess {
 		pieces.add(blackKing);
 
 
+		boolean huh = isSpaceEmpty(PieceFile.e, 2);
+		System.out.println(huh);
 
 
 		/* FILL IN THIS METHOD */
