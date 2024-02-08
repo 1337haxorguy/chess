@@ -71,7 +71,7 @@ public class Chess {
 	public static ReturnPlay play(String move) {
 
 		/* FILL IN THIS METHOD */
-		
+
 		
 		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
 		/* WHEN YOU FILL IN THIS METHOD, YOU NEED TO RETURN A ReturnPlay OBJECT */
@@ -84,8 +84,23 @@ public class Chess {
 	 */
 	public static void start() {
 
-
 		pieces.clear();
+
+		//KINGS
+
+		ReturnPiece whiteKing = new ReturnPiece();
+		whiteKing.pieceRank = 1;
+		whiteKing.pieceFile = PieceFile.e;
+		whiteKing.pieceType = PieceType.WK;
+		pieces.add(whiteKing);
+
+		ReturnPiece blackKing = new ReturnPiece();
+		blackKing.pieceRank = 8;
+		blackKing.pieceFile = PieceFile.e;
+		blackKing.pieceType = PieceType.BK;
+		pieces.add(blackKing);
+
+		//WHITE PAWNS
 
 		ReturnPiece WhitePawn1 = new ReturnPiece();
 		WhitePawn1.pieceRank = 2;
@@ -276,21 +291,6 @@ public class Chess {
 		blackQueen.pieceFile = PieceFile.d;
 		blackQueen.pieceType = PieceType.BQ;
 		pieces.add(blackQueen);
-
-		//KINGS
-
-		ReturnPiece whiteKing = new ReturnPiece();
-		whiteKing.pieceRank = 1;
-		whiteKing.pieceFile = PieceFile.e;
-		whiteKing.pieceType = PieceType.WK;
-		pieces.add(whiteKing);
-
-		ReturnPiece blackKing = new ReturnPiece();
-		blackKing.pieceRank = 8;
-		blackKing.pieceFile = PieceFile.e;
-		blackKing.pieceType = PieceType.BK;
-		pieces.add(blackKing);
-
 
 		boolean huh = isSpaceEmpty(PieceFile.e, 2);
 		System.out.println(huh);
