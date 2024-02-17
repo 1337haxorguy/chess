@@ -96,6 +96,7 @@ public class Chess {
 	 */
 	public static void start() {
 
+
 		pieces.clear();
 		board.clear();
 
@@ -337,8 +338,8 @@ public class Chess {
 		pieces.add(blackQueen);
 		board.put(getPiecePosition(blackQueen.pieceFile,blackQueen.pieceRank), blackQueen);
 
-		boolean huh = isSpaceEmpty(PieceFile.e, 2);
-		System.out.println(huh);
+
+		System.out.println(getPiecePosition(blackQueen.pieceFile,blackQueen.pieceRank));
 
 
 		/* FILL IN THIS METHOD */
