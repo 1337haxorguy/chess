@@ -3,11 +3,16 @@ package chess;
 import java.util.Map;
 
 import chess.Chess;
-import chess.Piece;
+import chess.ReturnPiece;
 
 public class Rook implements Piece {
 
     public boolean validMove(int startFile, int startRank, int endFile, int endRank) {
+
+        Map<String, ReturnPiece> board = Chess.board; // Accessing the board from Chess class
+        int step = Integer.compare(endFile, startFile);
+
+
 
         ReturnPiece startPiece = board.get(Chess.getPiecePosition(startFile, startRank));
         ReturnPiece endPiece = board.get(Chess.getPiecePosition(endFile, endRank));
@@ -21,14 +26,12 @@ public class Rook implements Piece {
         if (startFile == endFile || startRank == endRank) {
             // Check if there are any pieces blocking the path
             if (startFile == endFile) { // Moving vertically
-                int direction = Integer.compare(endRank, startRank);
                 for (int rank = startRank + step; rank != endRank; rank += step) {
                     if (board.containsKey(Chess.getPiecePosition(startFile, rank))) {
                         return false; // Path is blocked
                     }
                 }
             } else { // Moving horizontally
-                int step = Integer.compare(endFile, startFile);
                 for (int file = startFile + step; file != endFile; file += step) {
                     if (board.containsKey(Chess.getPiecePosition(file, startRank))) {
                         return false; // Path is blocked
@@ -42,6 +45,9 @@ public class Rook implements Piece {
     }
 
     public boolean move(int startFile, int startRank, int endFile, int endRank) {
+
+        Map<String, ReturnPiece> board = Chess.board; // Accessing the board from Chess class
+
 
         if (this.validMove(startFile, startRank, endFile, endRank) == false) {
             return false;

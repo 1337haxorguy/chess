@@ -50,8 +50,12 @@ public class Chess {
 	static Map<String, ReturnPiece> board = new HashMap<>();
 
 	//this will organize the pieceFile and rank into one string
-	private static String getPiecePosition(PieceFile letter, int rank){
+	 static String getPiecePosition(PieceFile letter, int rank){
 		return "" + letter.toString() + rank;
+	}
+
+	 static String getPiecePosition(int file, int rank){
+		return "" + file + rank;
 	}
 
 	static ArrayList<ReturnPiece> pieces = new ArrayList<>();
