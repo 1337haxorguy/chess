@@ -81,6 +81,31 @@ public class Chess {
 
 	}
 
+
+    public static PieceFile charToPieceFile(char c) {
+        switch (c) {
+            case 'a':
+                return PieceFile.a;
+            case 'b':
+                return PieceFile.b;
+            case 'c':
+                return PieceFile.c;
+            case 'd':
+                return PieceFile.d;
+            case 'e':
+                return PieceFile.e;
+            case 'f':
+                return PieceFile.f;
+            case 'g':
+                return PieceFile.g;
+            case 'h':
+                return PieceFile.h;
+            default:
+                throw new IllegalArgumentException("Invalid character: " + c);
+        }
+    }
+
+
 	/**
 	 * Plays the next move for whichever player has the turn.
 	 * 
@@ -244,7 +269,7 @@ public class Chess {
 		//ROOKS
 
 		ReturnPiece whiteRook1 = new ReturnPiece();
-		whiteRook1.pieceRank = 1;
+		whiteRook1.pieceRank = 3;
 		whiteRook1.pieceFile = PieceFile.a;
 		whiteRook1.pieceType = PieceType.WR;
 		pieces.add(whiteRook1);
@@ -304,7 +329,7 @@ public class Chess {
 		//BISHOPS
 
 		ReturnPiece whiteBishop1 = new ReturnPiece();
-		whiteBishop1.pieceRank = 1;
+		whiteBishop1.pieceRank = 5;
 		whiteBishop1.pieceFile = PieceFile.c;
 		whiteBishop1.pieceType = PieceType.WB;
 		pieces.add(whiteBishop1);
@@ -347,8 +372,17 @@ public class Chess {
 		pieces.add(blackQueen);
 		board.put(getPiecePosition(blackQueen.pieceFile,blackQueen.pieceRank), blackQueen);
 
+		Piece currentPiece = new Pawn();
+		
 
-		System.out.println(getPiecePosition(blackQueen.pieceFile,blackQueen.pieceRank));
+
+
+		currentPiece.move("c2", "d3");
+
+
+
+
+
 		PlayChess.printBoard(pieces);
 
 
