@@ -1,10 +1,5 @@
 package chess;
 
-import java.util.Map;
-
-import chess.Chess;
-import chess.ReturnPiece;
-
 public class Rook extends Piece {
 
     public boolean validMove(int startFile, int startRank, int endFile, int endRank) {
@@ -46,8 +41,6 @@ public class Rook extends Piece {
     }
 
     public boolean move(int startFile, int startRank, int endFile, int endRank) {
-
-        Map<String, ReturnPiece> board = Chess.board; // Accessing the board from Chess class
 
 
         if (this.validMove(startFile, startRank, endFile, endRank) == false) {

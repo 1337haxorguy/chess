@@ -26,40 +26,75 @@ public class Bishop extends Piece {
             return false; 
         }
 
-        if (startFile - endFile < 0 && startRank - endRank < 0) { //moving in first quadrant
+        int tempStartFile = startFile;
+        int tempStartRank = startRank;
+        if (startFile < endFile && startRank < endRank) { //moving in first quadrant
+
+            while (tempStartRank < endRank && tempStartFile < endFile) {
+                if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
+                    return false;
+                }
+                tempStartFile++;
+                tempStartRank++;    
+            }
+
+        } else if (startFile > endFile && startRank < endRank) { //second quadrant
+
+            while (tempStartRank < endRank && tempStartFile > endFile) {
+                if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
+                    return false;
+                }
+                tempStartFile--;
+                tempStartRank++;
+            }
+
+
+        } else if (startFile > endFile && startRank > endRank) { //third quadrant
+
+            while (tempStartRank > endRank && tempStartFile > endFile) {
+                if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
+                    return false;
+                }
+                tempStartFile--;
+                tempStartRank--;
+            }
+
+
+        } else if (startFile < endFile && startRank > endRank) { //fourth quadrant
+
+            while (tempStartRank > endRank && tempStartFile < endFile) {
+                if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
+                    return false;
+                }
+                tempStartFile++;
+                tempStartRank--;
+            }
+
 
         }
-
-        if (startFile - endFile > 0 && startRank - endRank < 0) { //second quadrant
-
-        }
-
-        if (startFile - endFile > 0 && startRank - endRank > 0) { //third quadrant
-
-        }
-
-        if (startFile - endFile < 0 && startRank - endRank > 0) { //second quadrant
-
-        }
-
-        
-
-
-
-
-
-
-
-
-
-
 
         return true;
     }
 
     public boolean move(int startFile, int startRank, int endFile, int endRank) {
 
-        return false;
+        if (this.validMove(startFile, startRank, endFile, endRank) == false) {
+            return false;
+        } 
+
+        if (!board.containsKey(Chess.getPiecePosition(startFile, startRank))) {
+            return false;
+        }
+
+        if (board.containsKey(Chess.getPiecePosition(endFile, endRank))) {
+            board.remove(Chess.getPiecePosition(endFile, endRank));
+        }
+
+        ReturnPiece wow = board.remove(Chess.getPiecePosition(startFile, startRank));
+        board.put(Chess.getPiecePosition(endFile, endRank), wow);
+
+        return true;
+
     }
 
 
