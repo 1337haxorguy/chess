@@ -2,26 +2,30 @@ package chess;
 
 public class Rook extends Piece {
 
-    public boolean validMove(int startFile, int startRank, int endFile, int endRank) {
+    public boolean validMove(String to, String from) {
 
-        int step = Integer.compare(endFile, startFile);
+        
 
-        ReturnPiece startPiece = board.get(Chess.getPiecePosition(startFile, startRank));
-        ReturnPiece endPiece = board.get(Chess.getPiecePosition(endFile, endRank));
+        ReturnPiece start = board.get(from);
+        ReturnPiece destination = board.get(to);
 
-        if (startPiece == null) {
+        if (!board.containsKey(from)) {
             return false;
         }
 
-        if (endPiece != null && startPiece.pieceType.ordinal() / 6 == endPiece.pieceType.ordinal() / 6) { 
+        if (board.containsKey(to) && start.pieceType.ordinal() / 6 == endPiece.pieceType.ordinal() / 6) { 
             //divide by six for the two different colors
             return false; // Piece in the end position is of the same color
         }
 
         // Rook can move horizontally or vertically
-        if (startFile == endFile || startRank == endRank) {
+        if (start.pieceFile == destination.pieceFile || start.pieceRank == destination.pieceRank) {
+
             // Check if there are any pieces blocking the path
-            if (startFile == endFile) { // Moving vertically
+            if (start.pieceFile == destination.pieceFile) { // Moving vertically
+
+                
+
                 for (int rank = startRank + step; rank != endRank; rank += step) {
                     if (board.containsKey(Chess.getPiecePosition(startFile, rank))) {
                         return false; // Path is blocked
