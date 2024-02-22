@@ -30,25 +30,26 @@ public class Pawn extends Piece {
         }
 
         //check if it their first move
-        if (start.pieceRank == 2){
-            //they are are to move one or two spaces up
-            // if (Math.abs(destination.pieceFile.ordinal()-start.pieceFile.ordinal()) )
-        }
+        // if (start.pieceRank == 2){
+        //     //they are are to move one or two spaces up
+        //     // if (Math.abs(destination.pieceFile.ordinal()-start.pieceFile.ordinal()) )
+        // }
 
         // Check for a valid one-square forward move
-        if (destination.pieceFile.ordinal() == start.pieceFile.ordinal() && ((destination.pieceRank - destination.pieceRank) == direction)) {
+        if (destination.pieceFile.ordinal() == start.pieceFile.ordinal() && ((destination.pieceRank - start.pieceRank) == direction)) {
             // The target space must be empty
             String toPosition = destination.pieceFile.toString() + destination.pieceRank;
             return !board.containsKey(toPosition);
         }
 
         // Check for a valid capture move (one square diagonally)
-        if (Math.abs(destination.pieceFile.ordinal() - destination.pieceFile.ordinal()) == 1 && (start.pieceRank - start.pieceRank) == direction) {
+        if (Math.abs(destination.pieceFile.ordinal() - start.pieceFile.ordinal()) == 1 && (destination.pieceRank - start.pieceRank) == direction) {
             // There must be an opponent's piece at the target space
             String toPosition = destination.pieceFile.toString()+ destination.pieceRank;
             ReturnPiece targetPiece = board.get(toPosition);
             //if the piece is there and not the same color
             if (targetPiece != null && targetPiece.pieceType != start.pieceType) {
+                System.out.println("YES");
                 return true;
             }
         }
@@ -70,6 +71,8 @@ public class Pawn extends Piece {
         }
 
         if (board.containsKey(to)) {
+            System.out.println("HEllo");
+            System.out.println(board.get(to).toString());
             board.remove(to);
         }
 

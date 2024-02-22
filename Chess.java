@@ -359,26 +359,25 @@ public class Chess {
 		//QUEENS
 
 		ReturnPiece whiteQueen = new ReturnPiece();
-		whiteQueen.pieceRank = 3;
+		whiteQueen.pieceRank = 1;
 		whiteQueen.pieceFile = PieceFile.d;
 		whiteQueen.pieceType = PieceType.WQ;
 		pieces.add(whiteQueen);
 		board.put(getPiecePosition(whiteQueen.pieceFile,whiteQueen.pieceRank), whiteQueen);
 
 		ReturnPiece blackQueen = new ReturnPiece();
-		blackQueen.pieceRank = 8;
+		blackQueen.pieceRank = 3;
 		blackQueen.pieceFile = PieceFile.d;
 		blackQueen.pieceType = PieceType.BQ;
 		pieces.add(blackQueen);
 		board.put(getPiecePosition(blackQueen.pieceFile,blackQueen.pieceRank), blackQueen);
 
-		Piece currentPiece = new Rook();
-		currentPiece = new Bishop();
-		currentPiece = new Queen();
+		Piece currentPiece = new Pawn();
+		
 
 
 
-		currentPiece.move("c5", "c7");
+		currentPiece.move("c2", "d3");
 
 
 
