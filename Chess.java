@@ -8,21 +8,28 @@ import chess.ReturnPiece.PieceFile;
 import chess.ReturnPiece.PieceType;
 
 class ReturnPiece {
-	static enum PieceType {WP, WR, WN, WB, WQ, WK, 
-		            BP, BR, BN, BB, BK, BQ};
-	static enum PieceFile {a, b, c, d, e, f, g, h};
-	
+	static enum PieceType {
+		WP, WR, WN, WB, WQ, WK,
+		BP, BR, BN, BB, BK, BQ
+	};
+
+	static enum PieceFile {
+		a, b, c, d, e, f, g, h
+	};
+
 	PieceType pieceType;
 	PieceFile pieceFile;
-	int pieceRank;  // 1..8
+	int pieceRank; // 1..8
+
 	public String toString() {
-		return ""+pieceFile+pieceRank+":"+pieceType;
+		return "" + pieceFile + pieceRank + ":" + pieceType;
 	}
+
 	public boolean equals(Object other) {
 		if (other == null || !(other instanceof ReturnPiece)) {
 			return false;
 		}
-		ReturnPiece otherPiece = (ReturnPiece)other;
+		ReturnPiece otherPiece = (ReturnPiece) other;
 		return pieceType == otherPiece.pieceType &&
 				pieceFile == otherPiece.pieceFile &&
 				pieceRank == otherPiece.pieceRank;
@@ -30,71 +37,69 @@ class ReturnPiece {
 }
 
 class ReturnPlay {
-	enum Message {ILLEGAL_MOVE, DRAW, 
-				  RESIGN_BLACK_WINS, RESIGN_WHITE_WINS, 
-				  CHECK, CHECKMATE_BLACK_WINS,	CHECKMATE_WHITE_WINS, 
-				  STALEMATE};
-	
+	enum Message {
+		ILLEGAL_MOVE, DRAW,
+		RESIGN_BLACK_WINS, RESIGN_WHITE_WINS,
+		CHECK, CHECKMATE_BLACK_WINS, CHECKMATE_WHITE_WINS,
+		STALEMATE
+	};
+
 	ArrayList<ReturnPiece> piecesOnBoard;
 	Message message;
 }
 
-
-
-
 public class Chess {
-	
-	enum Player { white, black }
 
-	//this hashmap will store the specified piece and location
+	enum Player {
+		white, black
+	}
+
+	// this hashmap will store the specified piece and location
 	static Map<String, ReturnPiece> board = new HashMap<>();
 
-	//this will organize the pieceFile and rank into one string
-	 static String getPiecePosition(PieceFile letter, int rank){
+	// this will organize the pieceFile and rank into one string
+	static String getPiecePosition(PieceFile letter, int rank) {
 		return "" + letter.toString() + rank;
 	}
 
-	 static String getPiecePosition(int file, int rank){
+	static String getPiecePosition(int file, int rank) {
 		return "" + file + rank;
 	}
 
 	static ArrayList<ReturnPiece> pieces = new ArrayList<>();
 
-
 	static boolean isSpaceEmpty(PieceFile pieceFile, int pieceRank) {
-        for (int i = 0; i < pieces.size(); i++) {
+		for (int i = 0; i < pieces.size(); i++) {
 
-            if (pieces.get(i).pieceFile == pieceFile && pieces.get(i).pieceRank == pieceRank) {
-                return false;
-            }
+			if (pieces.get(i).pieceFile == pieceFile && pieces.get(i).pieceRank == pieceRank) {
+				return false;
+			}
 
-        }
+		}
 
-        return true;
-        
-    }
+		return true;
 
-	
+	}
+
 	/**
 	 * Plays the next move for whichever player has the turn.
 	 * 
 	 * @param move String for next move, e.g. "a2 a3"
 	 * 
 	 * @return A ReturnPlay instance that contains the result of the move.
-	 *         See the section "The Chess class" in the assignment description for details of
+	 *         See the section "The Chess class" in the assignment description for
+	 *         details of
 	 *         the contents of the returned ReturnPlay instance.
 	 */
 	public static ReturnPlay play(String move) {
 
 		/* FILL IN THIS METHOD */
 
-		
 		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
 		/* WHEN YOU FILL IN THIS METHOD, YOU NEED TO RETURN A ReturnPlay OBJECT */
 		return null;
 	}
-	
-	
+
 	/**
 	 * This method should reset the game, and start from scratch.
 	 */
@@ -344,6 +349,8 @@ public class Chess {
 
 
 		System.out.println(getPiecePosition(blackQueen.pieceFile,blackQueen.pieceRank));
+		PlayChess.printBoard(pieces);
+
 
 
 		/* FILL IN THIS METHOD */

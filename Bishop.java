@@ -5,10 +5,9 @@ public class Bishop extends Piece {
     public  boolean validMove(int startFile, int startRank, int endFile, int endRank) {
 
         if (startFile == endFile && startRank == endRank) {
-            return false; // Bishop cannot stay in the same position
+            return false;
         }
-        
-        int step = Integer.compare(endFile, startFile);
+
         ReturnPiece startPiece = board.get(Chess.getPiecePosition(startFile, startRank));
         ReturnPiece endPiece = board.get(Chess.getPiecePosition(endFile, endRank));
 
@@ -18,17 +17,22 @@ public class Bishop extends Piece {
 
         if (endPiece != null && startPiece.pieceType.ordinal() / 6 == endPiece.pieceType.ordinal() / 6) { 
             //divide by six for the two different colors
-            return false; // Piece in the end position is of the same color
+            return false; 
         }
 
-        int fileDiff = Math.abs(endFile - startFile);
-        int rankDiff = Math.abs(endRank - startRank);
+        int fileDiff = Math.abs(startFile - endFile);
+        int rankDiff = Math.abs(startRank - endRank);
         if (fileDiff != rankDiff) {
-            return false; // Bishop can only move diagonally
+            return false; 
         }
 
+        if (startFile - endFile < 0 && startRank - endRank < 0) { //moving in first quadrant
 
-        for (int i = startRank)
+        }
+
+        
+
+
 
 
 
