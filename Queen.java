@@ -1,132 +1,146 @@
-// package chess;
+package chess;
 
-// public class Queen extends Piece {
+import chess.ReturnPiece.PieceFile;
 
-//     public boolean validMove(int startFile, int startRank, int endFile, int endRank) {
+public class Queen extends Piece {
 
-//         int fileDiff = Math.abs(startFile - endFile);
-//         int rankDiff = Math.abs(startRank - endRank);
+    public boolean validMove(String from, String to) {
 
-//         ReturnPiece startPiece = board.get(Chess.getPiecePosition(startFile, startRank));
-//         ReturnPiece endPiece = board.get(Chess.getPiecePosition(endFile, endRank));
-
-//         if (startPiece == null) {
-//             return false;
-//         }
-
-//         if (endPiece != null && startPiece.pieceType.ordinal() / 6 == endPiece.pieceType.ordinal() / 6) { 
-//             //divide by six for the two different colors
-//             return false; 
-//         }
+        if (!board.containsKey(from)) {
+            System.out.println("cannot find start piece");
+            return false;
+        }
+        
+        ReturnPiece start = board.get(from);
+        ReturnPiece destination = new ReturnPiece();
+        destination.pieceFile = Chess.charToPieceFile(to.charAt(0));
+        destination.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
 
 
-//         if (startFile == endFile || startRank == endRank) { //moves like a rook
 
-//             int step = Integer.compare(endFile, startFile);
-    
-//             // Rook can move horizontally or vertically
-//                 // Check if there are any pieces blocking the path
-//                 if (startFile == endFile) { // Moving vertically
-//                     for (int rank = startRank + step; rank != endRank; rank += step) {
-//                         if (board.containsKey(Chess.getPiecePosition(startFile, rank))) {
-//                             return false; // Path is blocked
-//                         }
-//                     }
-//                 } else { // Moving horizontally
-//                     for (int file = startFile + step; file != endFile; file += step) {
-//                         if (board.containsKey(Chess.getPiecePosition(file, startRank))) {
-//                             return false; // Path is blocked
-//                         }
-//                     }
-                
-//                 return true; // Valid move
-//             }
-    
-//             return false; // Invalid move for a Rook
-//         } else if (fileDiff == rankDiff) {
+        if (board.containsKey(to) && start.pieceType.ordinal() / 6 == board.get(to).pieceType.ordinal() / 6) { 
+            //divide by six for the two different colors
+            System.out.println("bruh");
 
-//             int tempStartFile = startFile;
-//             int tempStartRank = startRank;
-//             if (startFile < endFile && startRank < endRank) { //moving in first quadrant
+            return false; // Piece in the end position is of the same color
+        }
+
+
+        if (start.pieceFile == destination.pieceFile || start.pieceRank == destination.pieceRank) {
+
+            // Check if there are any pieces blocking the path
+            if (start.pieceFile == destination.pieceFile) { // Moving vertically
+                System.out.println("Moving vertically");
+
+
+                int step = Integer.compare(destination.pieceRank, start.pieceRank);
+
+                for (int rank = start.pieceRank + step; rank != destination.pieceRank; rank += step) {
+                    if (board.containsKey(Chess.getPiecePosition(start.pieceFile, rank))) {
+                        System.out.println("path blocked");
+                        return false; // Path is blocked
+                    }
+                }
+            } else { // Moving horizontally
+
+                int step = destination.pieceFile.compareTo(start.pieceFile);
+
+                for (int file = start.pieceFile.ordinal() + step; file != destination.pieceFile.ordinal(); file += step) {
+                    if (board.containsKey(Chess.getPiecePosition(PieceFile.values()[file], start.pieceRank))) {
+                        return false; // Path is blocked
+                    }
+                }
+            }
+            return true; // Valid move
+        } else {
+
+            int fileDiff = Math.abs(start.pieceFile.ordinal() - destination.pieceFile.ordinal());
+            int rankDiff = Math.abs(start.pieceRank - destination.pieceRank);
+            if (fileDiff != rankDiff) {
+                return false; 
+            }
     
-//                 while (tempStartRank < endRank && tempStartFile < endFile) {
-//                     if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
-//                         return false;
-//                     }
-//                     tempStartFile++;
-//                     tempStartRank++;    
-//                 }
+            int tempStartFile = start.pieceFile.ordinal() + 1;
+            int tempStartRank = start.pieceRank;
+            if (start.pieceFile.ordinal() < destination.pieceFile.ordinal() && start.pieceRank < destination.pieceRank) { //moving in first quadrant
     
-//             } else if (startFile > endFile && startRank < endRank) { //second quadrant
+                while (tempStartRank < destination.pieceRank && tempStartFile < destination.pieceFile.ordinal() + 1) {
+                    if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
+                        return false;
+                    }
+                    tempStartFile++;
+                    tempStartRank++;    
+                }
     
-//                 while (tempStartRank < endRank && tempStartFile > endFile) {
-//                     if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
-//                         return false;
-//                     }
-//                     tempStartFile--;
-//                     tempStartRank++;
-//                 }
+            } else if (start.pieceFile.ordinal() > destination.pieceFile.ordinal() && start.pieceRank < destination.pieceRank) { //second quadrant
     
-    
-//             } else if (startFile > endFile && startRank > endRank) { //third quadrant
-    
-//                 while (tempStartRank > endRank && tempStartFile > endFile) {
-//                     if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
-//                         return false;
-//                     }
-//                     tempStartFile--;
-//                     tempStartRank--;
-//                 }
-    
-    
-//             } else if (startFile < endFile && startRank > endRank) { //fourth quadrant
-    
-//                 while (tempStartRank > endRank && tempStartFile < endFile) {
-//                     if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
-//                         return false;
-//                     }
-//                     tempStartFile++;
-//                     tempStartRank--;
-//                 }
+                while (tempStartRank < destination.pieceRank && tempStartFile > destination.pieceFile.ordinal() + 1) {
+                    if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
+                        return false;
+                    }
+                    tempStartFile--;
+                    tempStartRank++;
+                }
     
     
-//             }
+            } else if (start.pieceFile.ordinal() > destination.pieceFile.ordinal() && start.pieceRank > destination.pieceRank) { //third quadrant
     
-//             return true;
+                while (tempStartRank > destination.pieceRank && tempStartFile > destination.pieceFile.ordinal() + 1) {
+                    if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
+                        return false;
+                    }
+                    tempStartFile--;
+                    tempStartRank--;
+                }
     
+    
+            } else if (start.pieceFile.ordinal() < destination.pieceFile.ordinal() && start.pieceRank > destination.pieceRank) { //fourth quadrant
+    
+                while (tempStartRank > destination.pieceRank && tempStartFile < destination.pieceFile.ordinal() + 1) {
+                    if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
+                        return false;
+                    }
+                    tempStartFile++;
+                    tempStartRank--;
+                }
+    
+    
+            }
+    
+            return true;
+        }
+    }
+
+
+    public boolean move(String from, String to) {
+
+        if (this.validMove(from, to) == false) {
+            System.out.println("invalid move!");
+            return false;
+        } 
+
+        if (!board.containsKey(from)) {
+            return false;
+        }
+
+        if (board.containsKey(to)) {
+            board.remove(to);
+        }
+
+        ReturnPiece wow = board.remove(from);
+        board.put(to, wow);
+        wow.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
+        wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
+        
+        
+
+        return true;
 
 
 
-//         } 
-
-//         return false;
-
-//     }
-
-
-//     public boolean move(int startFile, int startRank, int endFile, int endRank) {
-
-//         if (this.validMove(startFile, startRank, endFile, endRank) == false) {
-//             return false;
-//         } 
-
-//         if (!board.containsKey(Chess.getPiecePosition(startFile, startRank))) {
-//             return false;
-//         }
-
-//         if (board.containsKey(Chess.getPiecePosition(endFile, endRank))) {
-//             board.remove(Chess.getPiecePosition(endFile, endRank));
-//         }
-
-//         ReturnPiece wow = board.remove(Chess.getPiecePosition(startFile, startRank));
-//         board.put(Chess.getPiecePosition(endFile, endRank), wow);
-
-//         return true;
-
-
-//     }
+    }
 
 
 
 
-// }
+}
