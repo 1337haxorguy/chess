@@ -2,35 +2,40 @@ package chess;
 
 public class Bishop extends Piece {
 
-    public  boolean validMove(int startFile, int startRank, int endFile, int endRank) {
+    public  boolean validMove(String from, String to) {
 
-        if (startFile == endFile && startRank == endRank) {
+        if (!board.containsKey(from)) {
+            System.out.println("cannot find start piece");
+            return false;
+        }
+        
+        ReturnPiece start = board.get(from);
+        ReturnPiece destination = new ReturnPiece();
+        destination.pieceFile = Chess.charToPieceFile(to.charAt(0));
+        destination.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
+
+
+        if (start.pieceFile == destination.pieceFile && start.pieceRank == destination.pieceRank) {
             return false;
         }
 
-        ReturnPiece startPiece = board.get(Chess.getPiecePosition(startFile, startRank));
-        ReturnPiece endPiece = board.get(Chess.getPiecePosition(endFile, endRank));
 
-        if (startPiece == null) {
-            return false;
-        }
-
-        if (endPiece != null && startPiece.pieceType.ordinal() / 6 == endPiece.pieceType.ordinal() / 6) { 
+        if (board.containsKey(to) && start.pieceType.ordinal() / 6 == board.get(to).pieceType.ordinal() / 6) { 
             //divide by six for the two different colors
             return false; 
         }
 
-        int fileDiff = Math.abs(startFile - endFile);
-        int rankDiff = Math.abs(startRank - endRank);
+        int fileDiff = Math.abs(start.pieceFile.ordinal() - destination.pieceFile.ordinal());
+        int rankDiff = Math.abs(start.pieceRank - destination.pieceRank);
         if (fileDiff != rankDiff) {
             return false; 
         }
 
-        int tempStartFile = startFile;
-        int tempStartRank = startRank;
-        if (startFile < endFile && startRank < endRank) { //moving in first quadrant
+        int tempStartFile = start.pieceFile.ordinal() + 1;
+        int tempStartRank = start.pieceRank;
+        if (start.pieceFile.ordinal() < destination.pieceFile.ordinal() && start.pieceRank < destination.pieceRank) { //moving in first quadrant
 
-            while (tempStartRank < endRank && tempStartFile < endFile) {
+            while (tempStartRank < destination.pieceRank && tempStartFile < destination.pieceFile.ordinal() + 1) {
                 if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
                     return false;
                 }
@@ -38,9 +43,9 @@ public class Bishop extends Piece {
                 tempStartRank++;    
             }
 
-        } else if (startFile > endFile && startRank < endRank) { //second quadrant
+        } else if (start.pieceFile.ordinal() > destination.pieceFile.ordinal() && start.pieceRank < destination.pieceRank) { //second quadrant
 
-            while (tempStartRank < endRank && tempStartFile > endFile) {
+            while (tempStartRank < destination.pieceRank && tempStartFile > destination.pieceFile.ordinal() + 1) {
                 if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
                     return false;
                 }
@@ -49,9 +54,9 @@ public class Bishop extends Piece {
             }
 
 
-        } else if (startFile > endFile && startRank > endRank) { //third quadrant
+        } else if (start.pieceFile.ordinal() > destination.pieceFile.ordinal() && start.pieceRank > destination.pieceRank) { //third quadrant
 
-            while (tempStartRank > endRank && tempStartFile > endFile) {
+            while (tempStartRank > destination.pieceRank && tempStartFile > destination.pieceFile.ordinal() + 1) {
                 if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
                     return false;
                 }
@@ -60,9 +65,9 @@ public class Bishop extends Piece {
             }
 
 
-        } else if (startFile < endFile && startRank > endRank) { //fourth quadrant
+        } else if (start.pieceFile.ordinal() < destination.pieceFile.ordinal() && start.pieceRank > destination.pieceRank) { //fourth quadrant
 
-            while (tempStartRank > endRank && tempStartFile < endFile) {
+            while (tempStartRank > destination.pieceRank && tempStartFile < destination.pieceFile.ordinal() + 1) {
                 if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
                     return false;
                 }
@@ -76,22 +81,27 @@ public class Bishop extends Piece {
         return true;
     }
 
-    public boolean move(int startFile, int startRank, int endFile, int endRank) {
+    public boolean move(String from, String to) {
 
-        if (this.validMove(startFile, startRank, endFile, endRank) == false) {
+        if (this.validMove(from, to) == false) {
             return false;
         } 
 
-        if (!board.containsKey(Chess.getPiecePosition(startFile, startRank))) {
+        if (!board.containsKey(from)) {
             return false;
         }
 
-        if (board.containsKey(Chess.getPiecePosition(endFile, endRank))) {
-            board.remove(Chess.getPiecePosition(endFile, endRank));
+        if (board.containsKey(to)) {
+            board.remove(to);
         }
 
-        ReturnPiece wow = board.remove(Chess.getPiecePosition(startFile, startRank));
-        board.put(Chess.getPiecePosition(endFile, endRank), wow);
+        ReturnPiece wow = board.remove(from);
+        board.put(to, wow);
+        wow.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
+        wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
+
+
+
 
         return true;
 

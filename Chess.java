@@ -329,7 +329,7 @@ public class Chess {
 		//BISHOPS
 
 		ReturnPiece whiteBishop1 = new ReturnPiece();
-		whiteBishop1.pieceRank = 1;
+		whiteBishop1.pieceRank = 5;
 		whiteBishop1.pieceFile = PieceFile.c;
 		whiteBishop1.pieceType = PieceType.WB;
 		pieces.add(whiteBishop1);
@@ -373,12 +373,12 @@ public class Chess {
 		board.put(getPiecePosition(blackQueen.pieceFile,blackQueen.pieceRank), blackQueen);
 
 		Piece currentPiece = new Rook();
+		currentPiece = new Bishop();
 
 
 
-		currentPiece.move("a3", "a5");
+		currentPiece.move("c5", "c7");
 
-		currentPiece.move("a5", "g5");
 
 
 
