@@ -1,14 +1,17 @@
 package chess;
 
+import java.util.Map;
+
 import chess.ReturnPiece.PieceFile;
 import chess.ReturnPiece.PieceType;
 
-public interface Piece {
+public abstract class Piece {
+
+    Map<String, ReturnPiece> board = Chess.board;
 
 
-    public boolean move(int startFile, int startRank, int endFile, int endRank);
+    public abstract boolean move(int startFile, int startRank, int endFile, int endRank);
 
-    public boolean validMove(int startFile, int startRank, int endFile, int endRank);
-
+    public abstract boolean validMove(int startFile, int startRank, int endFile, int endRank);
     
 }

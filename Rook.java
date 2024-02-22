@@ -5,17 +5,18 @@ import java.util.Map;
 import chess.Chess;
 import chess.ReturnPiece;
 
-public class Rook implements Piece {
+public class Rook extends Piece {
 
     public boolean validMove(int startFile, int startRank, int endFile, int endRank) {
 
-        Map<String, ReturnPiece> board = Chess.board; // Accessing the board from Chess class
         int step = Integer.compare(endFile, startFile);
-
-
 
         ReturnPiece startPiece = board.get(Chess.getPiecePosition(startFile, startRank));
         ReturnPiece endPiece = board.get(Chess.getPiecePosition(endFile, endRank));
+
+        if (startPiece == null) {
+            return false;
+        }
 
         if (endPiece != null && startPiece.pieceType.ordinal() / 6 == endPiece.pieceType.ordinal() / 6) { 
             //divide by six for the two different colors
