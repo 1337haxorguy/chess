@@ -30,7 +30,21 @@ public class Bishop extends Piece {
 
         }
 
+        if (startFile - endFile > 0 && startRank - endRank < 0) { //second quadrant
+
+        }
+
+        if (startFile - endFile > 0 && startRank - endRank > 0) { //third quadrant
+
+        }
+
+        if (startFile - endFile < 0 && startRank - endRank > 0) { //second quadrant
+
+        }
+
         
+
+
 
 
 
