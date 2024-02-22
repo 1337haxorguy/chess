@@ -36,9 +36,10 @@ public class Pawn extends Piece {
         }
 
         // Check for a valid one-square forward move
-        if (destination.pieceFile.ordinal() == start.pieceFile.ordinal() && ((destination.pieceRank - destination.pieceRank) == direction)) {
+        if (destination.pieceFile.ordinal() == start.pieceFile.ordinal() && ((destination.pieceRank - start.pieceRank) == direction)) {
             // The target space must be empty
             String toPosition = destination.pieceFile.toString() + destination.pieceRank;
+            System.out.println("bruh");
             return !board.containsKey(toPosition);
         }
 
@@ -47,6 +48,7 @@ public class Pawn extends Piece {
             // There must be an opponent's piece at the target space
             String toPosition = destination.pieceFile.toString()+ destination.pieceRank;
             ReturnPiece targetPiece = board.get(toPosition);
+            System.out.println("if statement");
             //if the piece is there and not the same color
             if (targetPiece != null && targetPiece.pieceType != start.pieceType) {
                 return true;
@@ -54,6 +56,7 @@ public class Pawn extends Piece {
         }
 
         //if everything fails
+        System.out.println("wow");
         return false;
     }
 

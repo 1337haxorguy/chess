@@ -375,10 +375,10 @@ public class Chess {
 		Piece currentPiece = new Rook();
 		currentPiece = new Bishop();
 		currentPiece = new Queen();
+		currentPiece = new Pawn();
 
 
-
-		currentPiece.move("c5", "c7");
+		currentPiece.move("c2", "c3");
 
 
 
