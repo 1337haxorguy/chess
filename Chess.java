@@ -359,7 +359,7 @@ public class Chess {
 		//QUEENS
 
 		ReturnPiece whiteQueen = new ReturnPiece();
-		whiteQueen.pieceRank = 1;
+		whiteQueen.pieceRank = 3;
 		whiteQueen.pieceFile = PieceFile.d;
 		whiteQueen.pieceType = PieceType.WQ;
 		pieces.add(whiteQueen);
@@ -372,12 +372,13 @@ public class Chess {
 		pieces.add(blackQueen);
 		board.put(getPiecePosition(blackQueen.pieceFile,blackQueen.pieceRank), blackQueen);
 
-		Piece currentPiece = new Pawn();
-		
+		Piece currentPiece = new Rook();
+		currentPiece = new Bishop();
+		currentPiece = new Queen();
 
 
 
-		currentPiece.move("c2", "d3");
+		currentPiece.move("c5", "c7");
 
 
 
