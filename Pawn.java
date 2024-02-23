@@ -44,7 +44,7 @@ public class Pawn extends Piece {
         }
 
         // Check for a valid capture move (one square diagonally)
-        if (Math.abs(destination.pieceFile.ordinal() - destination.pieceFile.ordinal()) == 1 && (start.pieceRank - start.pieceRank) == direction) {
+        if (Math.abs(destination.pieceFile.ordinal() - start.pieceFile.ordinal()) == 1 && (destination.pieceRank - start.pieceRank) == direction) {
             // There must be an opponent's piece at the target space
             String toPosition = destination.pieceFile.toString()+ destination.pieceRank;
             ReturnPiece targetPiece = board.get(toPosition);

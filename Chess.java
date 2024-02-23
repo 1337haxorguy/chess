@@ -68,19 +68,61 @@ public class Chess {
 
 	static ArrayList<ReturnPiece> pieces = new ArrayList<>();
 
-	static boolean isSpaceEmpty(PieceFile pieceFile, int pieceRank) {
-		for (int i = 0; i < pieces.size(); i++) {
+	public static Piece checkPieceType(ReturnPiece currentPiece) {
+		if (currentPiece.pieceType == PieceType.WP || currentPiece.pieceType == PieceType.BP) {
+			return new Pawn();
+		} else if (currentPiece.pieceType == PieceType.WR || currentPiece.pieceType == PieceType.BR) {
+			return new Rook();
 
-			if (pieces.get(i).pieceFile == pieceFile && pieces.get(i).pieceRank == pieceRank) {
-				return false;
-			}
+		} else if (currentPiece.pieceType == PieceType.WB || currentPiece.pieceType == PieceType.BB) {
+			return new Bishop();
 
+	//	} else if (currentPiece.pieceType == PieceType.WK || currentPiece.pieceType == PieceType.BK) {
+	//		return new Knight();
+
+		} else if (currentPiece.pieceType == PieceType.WQ || currentPiece.pieceType == PieceType.BQ) {
+			return new Queen();
+
+		} else if (currentPiece.pieceType == PieceType.WK || currentPiece.pieceType == PieceType.BK) {
+			return new King();
+
+		} else {
+			return new Pawn();
 		}
-
-		return true;
-
 	}
 
+	public static boolean isInCheck() {
+
+		ReturnPiece whiteKing = pieces.get(0); 
+		ReturnPiece blackKing = pieces.get(1);
+
+        Piece currPiece = new Pawn();
+        ReturnPiece setPiece = new ReturnPiece();
+        for (String key : board.keySet()) {
+
+            setPiece = board.get(key);
+            currPiece = Chess.checkPieceType(setPiece);
+
+			if (setPiece.pieceType.ordinal() / 6 == 0) { // Piece is white
+
+				if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank), getPiecePosition(blackKing.pieceFile, blackKing.pieceRank))) {
+					return true;
+				}
+				
+			} else { //piece is black
+
+				if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank), getPiecePosition(whiteKing.pieceFile, whiteKing.pieceRank))) {
+					return true;
+				}
+
+			}
+
+        }
+
+        return false;
+
+
+    }
 
     public static PieceFile charToPieceFile(char c) {
         switch (c) {
@@ -329,7 +371,7 @@ public class Chess {
 		//BISHOPS
 
 		ReturnPiece whiteBishop1 = new ReturnPiece();
-		whiteBishop1.pieceRank = 5;
+		whiteBishop1.pieceRank = 1;
 		whiteBishop1.pieceFile = PieceFile.c;
 		whiteBishop1.pieceType = PieceType.WB;
 		pieces.add(whiteBishop1);
@@ -366,8 +408,8 @@ public class Chess {
 		board.put(getPiecePosition(whiteQueen.pieceFile,whiteQueen.pieceRank), whiteQueen);
 
 		ReturnPiece blackQueen = new ReturnPiece();
-		blackQueen.pieceRank = 8;
-		blackQueen.pieceFile = PieceFile.d;
+		blackQueen.pieceRank = 3;
+		blackQueen.pieceFile = PieceFile.b;
 		blackQueen.pieceType = PieceType.BQ;
 		pieces.add(blackQueen);
 		board.put(getPiecePosition(blackQueen.pieceFile,blackQueen.pieceRank), blackQueen);
@@ -375,10 +417,10 @@ public class Chess {
 		Piece currentPiece = new Rook();
 		currentPiece = new Bishop();
 		currentPiece = new Queen();
-		currentPiece = new Pawn();
+		currentPiece = new Rook();
 
 
-		currentPiece.move("c2", "c3");
+		currentPiece.move("c2", "b3");
 
 
 
