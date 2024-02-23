@@ -7,7 +7,7 @@ public class Pawn extends Piece {
     public boolean validMove(String from, String to) {
 
         if (!board.containsKey((from))){
-            System.out.println("L");
+
             return false;
         }
         //grabbing current location
@@ -33,16 +33,33 @@ public class Pawn extends Piece {
         int direction = 0;
         if (start.pieceType.ordinal()<6){
             direction= 1; //direction will move forward
+            if (destination.pieceRank<start.pieceRank){
+                return false;
+            }
         }
         else{
             direction = -1;
+            if (start.pieceRank>destination.pieceRank){
+                return false;
+            }
         }
 
-        //check if it their first move
-        // if (start.pieceRank == 2){
-        //     //they are are to move one or two spaces up
-        //     // if (Math.abs(destination.pieceFile.ordinal()-start.pieceFile.ordinal()) )
-        // }
+        //check if it is their first move
+        if ((start.pieceRank == 2) && (destination.pieceFile.ordinal() == start.pieceFile.ordinal())){
+            //they are are to move one or two spaces up
+            //if piece is black
+            if (destination.pieceRank-start.pieceRank==-1 || destination.pieceRank-start.pieceRank== -2){
+                String toPosition= destination.pieceFile.toString()+ destination.pieceRank;
+                return !board.containsKey(toPosition);
+            }
+            else if (destination.pieceRank-start.pieceRank== 1 || destination.pieceRank-start.pieceRank==2){
+                String toPosition= destination.pieceFile.toString()+ destination.pieceRank;
+                return !board.containsKey(toPosition);
+            }
+
+            return false;
+            
+        }
 
         // Check for a valid one-square forward move
         if (destination.pieceFile.ordinal() == start.pieceFile.ordinal() && ((destination.pieceRank - start.pieceRank) == direction)) {

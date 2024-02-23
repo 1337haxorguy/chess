@@ -92,6 +92,7 @@ public class Bishop extends Piece {
         }
 
         if (board.containsKey(to)) {
+            Chess.pieces.remove(board.get(to));
             board.remove(to);
         }
 
