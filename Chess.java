@@ -377,7 +377,7 @@ public class Chess {
 
 
 
-		currentPiece.move("c2", "d3");
+		currentPiece.move("c2", "b1");
 
 
 

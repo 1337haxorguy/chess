@@ -19,6 +19,15 @@ public class Pawn extends Piece {
         destination.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
 
 
+        //checking if theres already a piece in the destination location and checking if they the same color
+        //returns false if same color
+        if (board.containsKey(to)){
+            if (start.pieceType.ordinal()/6 == board.get(to).pieceType.ordinal()/6){
+                return false;
+            }
+        }
+
+
         //if pieceType oridnal is 0-5, it is white
         //if pieceType ordinal is 6-11, it is black
         int direction = 0;
@@ -49,7 +58,6 @@ public class Pawn extends Piece {
             ReturnPiece targetPiece = board.get(toPosition);
             //if the piece is there and not the same color
             if (targetPiece != null && targetPiece.pieceType != start.pieceType) {
-                System.out.println("YES");
                 return true;
             }
         }
@@ -71,15 +79,17 @@ public class Pawn extends Piece {
         }
 
         if (board.containsKey(to)) {
-            System.out.println("HEllo");
-            System.out.println(board.get(to).toString());
+            Chess.pieces.remove(board.get(to));
             board.remove(to);
+            
         }
 
         ReturnPiece wow = board.remove(from);
         board.put(to, wow);
         wow.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
         wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
+        System.out.println(board.get(to).toString());
+        
         
         
 
