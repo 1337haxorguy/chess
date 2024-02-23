@@ -45,8 +45,8 @@ public class Pawn extends Piece {
             }
         }
 
-        boolean pawnFirstMove= (start.pieceType.toString().startsWith('W') && start.pieceRank ==2) ||
-                                (start.pieceType.toString().startsWith('B') && start.pieceRank==7);
+        boolean pawnFirstMove= (start.pieceType.toString().charAt(0) == 'W' && start.pieceRank ==2) ||
+                                (start.pieceType.toString().charAt(0) == 'B' && start.pieceRank==7);
 
         if (pawnFirstMove && Math.abs(destination.pieceRank- start.pieceRank)==2){
             String oneSquarePosition= Chess.getPiecePosition(start.pieceFile, start.pieceRank + direction);
