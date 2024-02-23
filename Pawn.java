@@ -6,6 +6,7 @@ public class Pawn extends Piece {
 
     public boolean validMove(String from, String to) {
 
+        //Checks if no pawn in from location is there
         if (!board.containsKey((from))){
 
             return false;
@@ -44,23 +45,24 @@ public class Pawn extends Piece {
             }
         }
 
-        //check if it is their first move
-        if ((start.pieceRank == 2) && (destination.pieceFile.ordinal() == start.pieceFile.ordinal())){
-            //they are are to move one or two spaces up
-            //if piece is black
-            if (destination.pieceRank-start.pieceRank==-1 || destination.pieceRank-start.pieceRank== -2){
-                String toPosition= destination.pieceFile.toString()+ destination.pieceRank;
-                return !board.containsKey(toPosition);
-            }
-            else if (destination.pieceRank-start.pieceRank== 1 || destination.pieceRank-start.pieceRank==2){
-                String toPosition= destination.pieceFile.toString()+ destination.pieceRank;
-                return !board.containsKey(toPosition);
-            }
+        boolean pawnFirstMove= (start.pieceType.toString().startsWith('W') && start.pieceRank ==2) ||
+                                (start.pieceType.toString().startsWith('B') && start.pieceRank==7);
 
-            return false;
-            
+        if (pawnFirstMove && Math.abs(destination.pieceRank- start.pieceRank)==2){
+            String oneSquarePosition= Chess.getPiecePosition(start.pieceFile, start.pieceRank + direction);
+            String twoSquarePosition= Chess.getPiecePosition(start.pieceFile, start.pieceRank + direction);
+
+            if (!board.containsKey(oneSquarePosition)&& !board.containsKey(twoSquarePosition)){
+                //this will mean that the pawn has two clear squares in front of it
+                return true;
+            }
+            else{
+                //there is a piece blocking the pawn from going two squares foward
+                return false;
+            }
         }
 
+    
         // Check for a valid one-square forward move
         if (destination.pieceFile.ordinal() == start.pieceFile.ordinal() && ((destination.pieceRank - start.pieceRank) == direction)) {
             // The target space must be empty
