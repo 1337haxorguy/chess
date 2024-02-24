@@ -26,8 +26,7 @@ public class King extends Piece {
             System.out.println("bruh");
 
             return false; // Piece in the end position is of the same color
-        } else if (!Chess.hasWhiteKingMoved && from == "e1") { //White castling
-
+        } else if (!Chess.hasWhiteKingMoved && from.equals("e1")) { //White castling
             if (board.get(from).pieceType == PieceType.WK) {
                 if (to == "g1") {
                     if (board.containsKey("a1")) {
@@ -37,37 +36,62 @@ public class King extends Piece {
                             if (!Chess.hasWhiteRookQueenSideMoved) {
 
                                 if (!board.containsKey("b1") && !board.containsKey("c1") && !board.containsKey("d1")) {
-
-                                    for (ReturnPiece setPiece : board.values()) {
-
-                                        Piece currPiece = Chess.checkPieceType(setPiece);
-                            
-                                        if (setPiece != maybeRook) {
-                            
-                                            if (setPiece.pieceType.ordinal() / 6 == 1) { // Piece is white
-                            
-                                                if (currPiece.validMove(Chess.getPiecePosition(setPiece.pieceFile, setPiece.pieceRank), "c1")) {
-                                                    System.out.println("IN CHECK BY TYPE" + setPiece.pieceType);
-                                                    return true; //I FINISHED WORKING HEREEEEE
-                                                }
-                                            }
-                                        }
-                                    }   
+                                    
+                                    return true;
 
                                 }
-
-                                
-
                             }
-                            
                         }
                     }
 
-                } else if (to == "c1") {
+                } else if (!Chess.hasWhiteKingMoved && to.equals("c1")) {
+                    if (board.containsKey("h1")) {
+                        ReturnPiece maybeRook = board.get("h1");
+                        if (maybeRook.pieceType == PieceType.WR) {
+                            if (!Chess.hasWhiteRookKingSideMoved) {
+                                if (!board.containsKey("f1") && !board.containsKey("g1")) {
+                                    
+                                    return true;
 
+                                }
+                            }
+                        }
+                    }
                 }
             }
+        } else if (!Chess.hasBlackKingMoved && from == "e8") { //BLACK KINGGGG
+            if (board.get(from).pieceType == PieceType.BK) {
+                if (to.equals("g8")) {
+                    if (board.containsKey("a8")) {
+                        ReturnPiece maybeRook = board.get("a8");
+                        if (maybeRook.pieceType == PieceType.WR) {
 
+                            if (!Chess.hasBlackRookQueenSideMoved) {
+
+                                if (!board.containsKey("b8") && !board.containsKey("c8") && !board.containsKey("d8")) {
+                                    
+                                    return true;
+
+                                }
+                            }
+                        }
+                    }
+
+                } else if (!Chess.hasBlackKingMoved && to.equals("c8")) {
+                    if (board.containsKey("h8")) {
+                        ReturnPiece maybeRook = board.get("h8");
+                        if (maybeRook.pieceType == PieceType.WR) {
+                            if (!Chess.hasBlackRookKingSideMoved) {
+                                if (!board.containsKey("f8") && !board.containsKey("g8")) {
+                                    
+                                    return true;
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         int differenceInHori = Math.abs(start.pieceFile.ordinal() - destination.pieceFile.ordinal());
