@@ -10,37 +10,57 @@ public abstract class Piece {
 
     public boolean move(String from, String to) {
 
-        System.out.println("called move");
 
         if (!board.containsKey(from)) {
             System.out.println("cannot find start piece");
             return false;
         }
 
-        if (this.validMove(from, to) == false) {
+        if (!validMove(from, to)) {
             System.out.println("this is invalid!");
             return false;
         } 
 
-        if (doesMovePutsOwnKingInCheck(from, to)) {
-            System.out.println("king in check");
-            return false;
-        }
+        boolean pieceRemoved = false;
+        ReturnPiece removedPiece = new ReturnPiece();
 
         if (board.containsKey(to)) {
             Chess.pieces.remove(board.get(to));
-            board.remove(to);
+            removedPiece = board.remove(to);
+            pieceRemoved = true;
         }
 
         ReturnPiece wow = board.remove(from);
         board.put(to, wow);
         wow.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
         wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
+
+        System.out.println(wow.pieceRank + "" + wow.pieceFile);
+
+        if (Chess.isOwnKingInCheck(wow)) {
+            System.out.println("invalid move because your king is in check");
+            board.remove(to);
+            board.put(from, wow);
+            wow.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));
+            wow.pieceFile = Chess.charToPieceFile(from.charAt(0));
+    
+
+            if (pieceRemoved) {
+                board.put(to, removedPiece);
+                Chess.pieces.add(board.get(to));
+
+            }
+
+            return false;
+
+        }
+
         
         return true;
 
 
     }
+
 
     public void undoMoveIfCheck(String from, String to, ReturnPiece movedPiece, ReturnPiece removedPiece) {
         // Undo the move
@@ -55,47 +75,5 @@ public abstract class Piece {
             Chess.pieces.add(removedPiece);
         }
     }
-
-    public boolean doesMovePutsOwnKingInCheck(String from, String to){
-
-        ReturnPiece movedPiece = board.remove(from);
-        ReturnPiece tempPiece = movedPiece;
-        ReturnPiece removedPiece = new ReturnPiece();
-        boolean pieceRemoved = false;
-
-        if (board.containsKey(to)) {
-            removedPiece = board.remove(to);
-            pieceRemoved = true;
-            
-        }
-        board.put(to, movedPiece);
-        movedPiece.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));
-        movedPiece.pieceFile = Chess.charToPieceFile(from.charAt(0));
-
-        if (Chess.isOwnKingInCheck(movedPiece)) {
-            board.remove(to);
-
-            board.put(from, tempPiece);
-
-            if (pieceRemoved) {
-                board.put(to, removedPiece);
-            }
-    
-            return true;
-        }
-
-        board.remove(to);
-
-        board.put(from, tempPiece);
-
-        if (pieceRemoved) {
-            board.put(to, removedPiece);
-        }
-
-
-        return false;
-        
-    }
-    
     
 }

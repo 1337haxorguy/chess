@@ -112,36 +112,4 @@ public class Queen extends Piece {
     }
 
 
-    public boolean move(String from, String to) {
-
-        if (this.validMove(from, to) == false) {
-            System.out.println("invalid move!");
-            return false;
-        } 
-
-        if (!board.containsKey(from)) {
-            return false;
-        }
-
-        if (board.containsKey(to)) {
-            Chess.pieces.remove(board.get(to));
-            board.remove(to);
-        }
-
-        ReturnPiece wow = board.remove(from);
-        board.put(to, wow);
-        wow.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
-        wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
-        
-        
-
-        return true;
-
-
-
-    }
-
-
-
-
 }

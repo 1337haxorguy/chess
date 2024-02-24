@@ -77,7 +77,7 @@ public class Chess {
 		} else if (currentPiece.pieceType == PieceType.WB || currentPiece.pieceType == PieceType.BB) {
 			return new Bishop();
 
-	//	} else if (currentPiece.pieceType == PieceType.WK || currentPiece.pieceType == PieceType.BK) {
+	//	} else if (currentPiece.pieceType == PieceType.WN || currentPiece.pieceType == PieceType.BN) {
 	//		return new Knight();
 
 		} else if (currentPiece.pieceType == PieceType.WQ || currentPiece.pieceType == PieceType.BQ) {
@@ -91,38 +91,6 @@ public class Chess {
 		}
 	}
 
-	public static boolean isInCheck() {
-
-		ReturnPiece whiteKing = pieces.get(0); 
-		ReturnPiece blackKing = pieces.get(1);
-
-        Piece currPiece = new Pawn();
-        ReturnPiece setPiece = new ReturnPiece();
-        for (String key : board.keySet()) {
-
-            setPiece = board.get(key);
-            currPiece = Chess.checkPieceType(setPiece);
-
-			if (setPiece.pieceType.ordinal() / 6 == 0) { // Piece is white
-
-				if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank), getPiecePosition(blackKing.pieceFile, blackKing.pieceRank))) {
-					return true;
-				}
-				
-			} else { //piece is black
-
-				if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank), getPiecePosition(whiteKing.pieceFile, whiteKing.pieceRank))) {
-					return true;
-				}
-
-			}
-
-        }
-
-        return false;
-
-
-    }
 
 	public static boolean isOwnKingInCheck(ReturnPiece returnPiece) {
 
@@ -130,28 +98,36 @@ public class Chess {
 		ReturnPiece blackKing = pieces.get(1);
 
         Piece currPiece = new Pawn();
-        ReturnPiece setPiece = new ReturnPiece();
-        for (String key : board.keySet()) {
+        for (ReturnPiece setPiece : board.values()) {
 
-            setPiece = board.get(key);
+
             currPiece = Chess.checkPieceType(setPiece);
 
-			if (returnPiece.pieceType.ordinal() / 6 == 0) { // Piece is white
+			if (setPiece != whiteKing && setPiece != blackKing) {
 
-				if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank), getPiecePosition(whiteKing.pieceFile, whiteKing.pieceRank))) {
-					System.out.println("IN CHECK BY TYPE" + setPiece.pieceType);
-					return true;
-				}
-				
-			} else { //piece is black
+				if (returnPiece.pieceType.ordinal() / 6 == 0) { // Piece is white
 
 
-				if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank), getPiecePosition(blackKing.pieceFile, blackKing.pieceRank))) {
-					System.out.println("IN CHECK BY TYPE" + setPiece.pieceType);
-					return true;
+					if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank), getPiecePosition(whiteKing.pieceFile, whiteKing.pieceRank))) {
+						System.out.println("IN CHECK BY TYPE" + setPiece.pieceType);
+						return true;
+					}
+					
+				} else { //piece is black
+
+
+	
+	
+					if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank), getPiecePosition(blackKing.pieceFile, blackKing.pieceRank))) {
+						System.out.println("IN CHECK BY TYPE" + setPiece.pieceType);
+						return true;
+					}
+	
 				}
 
 			}
+
+
 
         }
 
@@ -209,21 +185,20 @@ public class Chess {
 	 */
 	public static void start() {
 
-
 		pieces.clear();
 		board.clear();
 
 		//KINGS
 
 		ReturnPiece whiteKing = new ReturnPiece();
-		whiteKing.pieceRank = 1;
+		whiteKing.pieceRank = 5;
 		whiteKing.pieceFile = PieceFile.e;
 		whiteKing.pieceType = PieceType.WK;
 		pieces.add(whiteKing);
 		board.put(getPiecePosition(whiteKing.pieceFile,whiteKing.pieceRank), whiteKing);
 
 		ReturnPiece blackKing = new ReturnPiece();
-		blackKing.pieceRank = 5;
+		blackKing.pieceRank = 1;
 		blackKing.pieceFile = PieceFile.e;
 		blackKing.pieceType = PieceType.BK;
 		pieces.add(blackKing);
@@ -348,8 +323,8 @@ public class Chess {
 		//ROOKS
 
 		ReturnPiece whiteRook1 = new ReturnPiece();
-		whiteRook1.pieceRank = 1;
-		whiteRook1.pieceFile = PieceFile.a;
+		whiteRook1.pieceRank = 5;
+		whiteRook1.pieceFile = PieceFile.g;
 		whiteRook1.pieceType = PieceType.WR;
 		pieces.add(whiteRook1);
 		board.put(getPiecePosition(whiteRook1.pieceFile,whiteRook1.pieceRank), whiteRook1);
@@ -369,7 +344,7 @@ public class Chess {
 		board.put(getPiecePosition(blackRook1.pieceFile,blackRook1.pieceRank), blackRook1);
 
 		ReturnPiece blackRook2 = new ReturnPiece();
-		blackRook2.pieceRank = 3;
+		blackRook2.pieceRank = 5;
 		blackRook2.pieceFile = PieceFile.h;
 		blackRook2.pieceType = PieceType.BR;
 		pieces.add(blackRook2);
@@ -452,14 +427,11 @@ public class Chess {
 		board.put(getPiecePosition(blackQueen.pieceFile,blackQueen.pieceRank), blackQueen);
 
 		Piece currentPiece = new Pawn();
-		currentPiece = new King();
 		currentPiece = new Rook();
 		
-		currentPiece.move("e5", "e4");
+		currentPiece.move("g5", "g3");
 
 		PlayChess.printBoard(pieces);
-
-
 
 		/* FILL IN THIS METHOD */
 	}
