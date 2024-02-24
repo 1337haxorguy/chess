@@ -1,9 +1,10 @@
 package chess;
 
+import chess.ReturnPiece.PieceType;
+
 public class King extends Piece {
 
-
-
+    public boolean hasMoved = false;
 
     public boolean validMove(String from, String to) {
         System.out.println("running valid move with king " + from + " " + to);
@@ -25,6 +26,48 @@ public class King extends Piece {
             System.out.println("bruh");
 
             return false; // Piece in the end position is of the same color
+        } else if (!Chess.hasWhiteKingMoved && from == "e1") { //White castling
+
+            if (board.get(from).pieceType == PieceType.WK) {
+                if (to == "g1") {
+                    if (board.containsKey("a1")) {
+                        ReturnPiece maybeRook = board.get("a1");
+                        if (maybeRook.pieceType == PieceType.WR) {
+
+                            if (!Chess.hasWhiteRookQueenSideMoved) {
+
+                                if (!board.containsKey("b1") && !board.containsKey("c1") && !board.containsKey("d1")) {
+
+                                    for (ReturnPiece setPiece : board.values()) {
+
+                                        Piece currPiece = Chess.checkPieceType(setPiece);
+                            
+                                        if (setPiece != maybeRook) {
+                            
+                                            if (setPiece.pieceType.ordinal() / 6 == 1) { // Piece is white
+                            
+                                                if (currPiece.validMove(Chess.getPiecePosition(setPiece.pieceFile, setPiece.pieceRank), "c1")) {
+                                                    System.out.println("IN CHECK BY TYPE" + setPiece.pieceType);
+                                                    return true; //I FINISHED WORKING HEREEEEE
+                                                }
+                                            }
+                                        }
+                                    }   
+
+                                }
+
+                                
+
+                            }
+                            
+                        }
+                    }
+
+                } else if (to == "c1") {
+
+                }
+            }
+
         }
 
         int differenceInHori = Math.abs(start.pieceFile.ordinal() - destination.pieceFile.ordinal());
@@ -68,8 +111,6 @@ public class King extends Piece {
         wow.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
         wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
 
-        System.out.println(wow.pieceRank + "" + wow.pieceFile);
-
         if (Chess.isOwnKingInCheck(wow)) {
             System.out.println("invalid move because your king is in check");
             board.remove(to);
@@ -89,7 +130,13 @@ public class King extends Piece {
         }
 
         System.out.println("Moved king to " + wow.pieceFile + wow.pieceRank);
-        
+
+        if (from == "e1") {
+            Chess.hasWhiteKingMoved = true;
+        } else if (from == "e8") {
+            Chess.hasBlackKingMoved = true;
+        }
+    
         return true;
 
 

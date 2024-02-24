@@ -4,6 +4,8 @@ import chess.ReturnPiece.PieceFile;
 
 public class Rook extends Piece {
 
+    public boolean hasMoved = false;
+
     public boolean validMove(String from, String to) {
 
         if (!board.containsKey(from)) {
@@ -56,5 +58,67 @@ public class Rook extends Piece {
 
         return false; // Invalid move for a Rook
     }
+
+    public boolean move(String from, String to) {
+
+
+        if (!board.containsKey(from)) {
+            System.out.println("cannot find start piece");
+            return false;
+        }
+
+        if (!validMove(from, to)) {
+            System.out.println("this is invalid!");
+            return false;
+        } 
+
+        boolean pieceRemoved = false;
+        ReturnPiece removedPiece = new ReturnPiece();
+
+        if (board.containsKey(to)) {
+            Chess.pieces.remove(board.get(to));
+            removedPiece = board.remove(to);
+            pieceRemoved = true;
+        }
+
+        ReturnPiece wow = board.remove(from);
+        board.put(to, wow);
+        wow.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
+        wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
+
+        System.out.println(wow.pieceRank + "" + wow.pieceFile);
+
+        if (Chess.isOwnKingInCheck(wow)) {
+            System.out.println("invalid move because your king is in check");
+            board.remove(to);
+            board.put(from, wow);
+            wow.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));
+            wow.pieceFile = Chess.charToPieceFile(from.charAt(0));
+    
+
+            if (pieceRemoved) {
+                board.put(to, removedPiece);
+                Chess.pieces.add(board.get(to));
+
+            }
+
+            return false;
+
+        }
+
+        if (from == "a1") {
+            Chess.hasWhiteRookQueenSideMoved = true;
+        } else if (from == "h1") {
+            Chess.hasWhiteRookKingSideMoved = true;
+        } else if (from == "a8") {
+            Chess.hasBlackRookQueenSideMoved = true;
+        } else if (from == "h8") {
+            Chess.hasBlackRookKingSideMoved = true;
+        }
+        return true;
+
+
+    }
+
 
 }

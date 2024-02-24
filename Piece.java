@@ -4,6 +4,8 @@ import java.util.Map;
 
 public abstract class Piece {
 
+    public boolean hasMoved = false;
+
     static Map<String, ReturnPiece> board = Chess.board;
 
     public abstract boolean validMove(String from, String to);

@@ -57,6 +57,13 @@ public class Chess {
 	// this hashmap will store the specified piece and location
 	static Map<String, ReturnPiece> board = new HashMap<>();
 
+	public static boolean hasWhiteKingMoved = false;
+	public static boolean hasBlackKingMoved = false;
+	public static boolean hasWhiteRookKingSideMoved = false;
+	public static boolean hasWhiteRookQueenSideMoved = false;
+	public static boolean hasBlackRookKingSideMoved = false;
+	public static boolean hasBlackRookQueenSideMoved = false;
+
 	// this will organize the pieceFile and rank into one string
 	static String getPiecePosition(PieceFile letter, int rank) {
 		return "" + letter.toString() + rank;
@@ -107,7 +114,6 @@ public class Chess {
 
 				if (returnPiece.pieceType.ordinal() / 6 == 0) { // Piece is white
 
-
 					if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank), getPiecePosition(whiteKing.pieceFile, whiteKing.pieceRank))) {
 						System.out.println("IN CHECK BY TYPE" + setPiece.pieceType);
 						return true;
@@ -115,25 +121,14 @@ public class Chess {
 					
 				} else { //piece is black
 
-
-	
-	
 					if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank), getPiecePosition(blackKing.pieceFile, blackKing.pieceRank))) {
 						System.out.println("IN CHECK BY TYPE" + setPiece.pieceType);
 						return true;
 					}
-	
 				}
-
 			}
-
-
-
         }
-
         return false;
-
-
     }
 
 
