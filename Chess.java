@@ -316,7 +316,7 @@ public class Chess {
 		board.put(getPiecePosition(BlackPawn7.pieceFile,BlackPawn7.pieceRank), BlackPawn7);
 
 		ReturnPiece BlackPawn8 = new ReturnPiece();
-		BlackPawn8.pieceRank = 7;
+		BlackPawn8.pieceRank = 1;
 		BlackPawn8.pieceFile = PieceFile.h;
 		BlackPawn8.pieceType = PieceType.BP;
 		pieces.add(BlackPawn8);
@@ -332,7 +332,7 @@ public class Chess {
 		board.put(getPiecePosition(whiteRook1.pieceFile,whiteRook1.pieceRank), whiteRook1);
 
 		ReturnPiece whiteRook2 = new ReturnPiece();
-		whiteRook2.pieceRank = 1;
+		whiteRook2.pieceRank = 5;
 		whiteRook2.pieceFile = PieceFile.h;
 		whiteRook2.pieceType = PieceType.WR;
 		pieces.add(whiteRook2);
@@ -355,28 +355,28 @@ public class Chess {
 		//KNIGHTS
 
 		ReturnPiece whiteKnight1 = new ReturnPiece();
-		whiteKnight1.pieceRank = 3;
+		whiteKnight1.pieceRank = 1;
 		whiteKnight1.pieceFile = PieceFile.b;
 		whiteKnight1.pieceType = PieceType.WN;
 		pieces.add(whiteKnight1);
 		board.put(getPiecePosition(whiteKnight1.pieceFile,whiteKnight1.pieceRank), whiteKnight1);
 
 		ReturnPiece whiteKnight2 = new ReturnPiece();
-		whiteKnight2.pieceRank = 3;
+		whiteKnight2.pieceRank = 1;
 		whiteKnight2.pieceFile = PieceFile.g;
 		whiteKnight2.pieceType = PieceType.WN;
 		pieces.add(whiteKnight2);
 		board.put(getPiecePosition(whiteKnight2.pieceFile,whiteKnight2.pieceRank), whiteKnight2);
 
 		ReturnPiece blackKnight1 = new ReturnPiece();
-		blackKnight1.pieceRank = 6;
+		blackKnight1.pieceRank = 8;
 		blackKnight1.pieceFile = PieceFile.b;
 		blackKnight1.pieceType = PieceType.BN;
 		pieces.add(blackKnight1);
 		board.put(getPiecePosition(blackKnight1.pieceFile,blackKnight1.pieceRank), blackKnight1);
 
 		ReturnPiece blackKnight2 = new ReturnPiece();
-		blackKnight2.pieceRank = 6;
+		blackKnight2.pieceRank = 8;
 		blackKnight2.pieceFile = PieceFile.g;
 		blackKnight2.pieceType = PieceType.BN;
 		pieces.add(blackKnight2);
@@ -385,28 +385,28 @@ public class Chess {
 		//BISHOPS
 
 		ReturnPiece whiteBishop1 = new ReturnPiece();
-		whiteBishop1.pieceRank = 3;
+		whiteBishop1.pieceRank = 1;
 		whiteBishop1.pieceFile = PieceFile.c;
 		whiteBishop1.pieceType = PieceType.WB;
 		pieces.add(whiteBishop1);
 		board.put(getPiecePosition(whiteBishop1.pieceFile,whiteBishop1.pieceRank), whiteBishop1);
 
 		ReturnPiece whiteBishop2 = new ReturnPiece();
-		whiteBishop2.pieceRank = 3;
+		whiteBishop2.pieceRank = 1;
 		whiteBishop2.pieceFile = PieceFile.f;
 		whiteBishop2.pieceType = PieceType.WB;
 		pieces.add(whiteBishop2);
 		board.put(getPiecePosition(whiteBishop2.pieceFile,whiteBishop2.pieceRank), whiteBishop2);
 
 		ReturnPiece blackBishop1 = new ReturnPiece();
-		blackBishop1.pieceRank = 3;
+		blackBishop1.pieceRank = 8;
 		blackBishop1.pieceFile = PieceFile.c;
 		blackBishop1.pieceType = PieceType.BB;
 		pieces.add(blackBishop1);
 		board.put(getPiecePosition(blackBishop1.pieceFile,blackBishop1.pieceRank), blackBishop1);
 
 		ReturnPiece blackBishop2 = new ReturnPiece();
-		blackBishop2.pieceRank = 3;
+		blackBishop2.pieceRank = 8;
 		blackBishop2.pieceFile = PieceFile.f;
 		blackBishop2.pieceType = PieceType.BB;
 		pieces.add(blackBishop2);
@@ -415,27 +415,26 @@ public class Chess {
 		//QUEENS
 
 		ReturnPiece whiteQueen = new ReturnPiece();
-		whiteQueen.pieceRank = 3;
+		whiteQueen.pieceRank = 1;
 		whiteQueen.pieceFile = PieceFile.d;
 		whiteQueen.pieceType = PieceType.WQ;
 		pieces.add(whiteQueen);
 		board.put(getPiecePosition(whiteQueen.pieceFile,whiteQueen.pieceRank), whiteQueen);
 
 		ReturnPiece blackQueen = new ReturnPiece();
-		blackQueen.pieceRank = 6;
+		blackQueen.pieceRank = 8;
 		blackQueen.pieceFile = PieceFile.d;
 		blackQueen.pieceType = PieceType.BQ;
 		pieces.add(blackQueen);
 		board.put(getPiecePosition(blackQueen.pieceFile,blackQueen.pieceRank), blackQueen);
 
-		Piece currentPiece = new Pawn();
-		currentPiece = new King();
+		Piece currentPieceB = new Pawn();
+		currentPieceB.pawnPromotion("Q", BlackPawn7);
 
-		currentPiece.move("e8", "c8");
-
-
-		currentPiece.move("c8", "b8");
-
+		//Piece currentPieceW= new Pawn();
+		
+		//currentPieceW.move("d2","d3");
+		
 		
 
 		PlayChess.printBoard(pieces);
