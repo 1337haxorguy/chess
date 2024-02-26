@@ -14,12 +14,10 @@ public abstract class Piece {
 
 
         if (!board.containsKey(from)) {
-            System.out.println("cannot find start piece");
             return false;
         }
 
         if (!validMove(from, to)) {
-            System.out.println("this is invalid!");
             return false;
         } 
 
@@ -37,10 +35,8 @@ public abstract class Piece {
         wow.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
         wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
 
-        System.out.println(wow.pieceRank + "" + wow.pieceFile);
 
         if (Chess.isOwnKingInCheck(wow)) {
-            System.out.println("invalid move because your king is in check");
             board.remove(to);
             board.put(from, wow);
             wow.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));
@@ -63,30 +59,136 @@ public abstract class Piece {
 
     }
 
+    public boolean hypotheticalMove (String from, String to) {
 
-    public void undoMove(String from, String to, ReturnPiece movedPiece, ReturnPiece removedPiece) {
-        // Undo the move
-        board.remove(to);
-        board.put(from, movedPiece);
-        movedPiece.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));
-        movedPiece.pieceFile = Chess.charToPieceFile(from.charAt(0));
-        
-        // Restore the removed piece if there was one
-        if (removedPiece != null) {
-            board.put(to, removedPiece);
-            Chess.pieces.add(removedPiece);
+        boolean isMovePossible = true;
+
+        if (!board.containsKey(from)) {
+            return false;
         }
-    }
 
-    public void undoMove(String from, String to, ReturnPiece movedPiece) {
-        // Undo the move
+        if (!validMove(from, to)) {
+            return false;
+        } 
+
+        boolean pieceRemoved = false;
+        ReturnPiece removedPiece = new ReturnPiece();
+
+        if (board.containsKey(to)) {
+            Chess.pieces.remove(board.get(to));
+            removedPiece = board.remove(to);
+            pieceRemoved = true;
+        }
+
+        ReturnPiece wow = board.remove(from);
+        board.put(to, wow);
+        wow.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
+        wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
+
+
+        if (Chess.isOwnKingInCheck(wow)) {
+            isMovePossible = false;
+
+        }
+
         board.remove(to);
-        board.put(from, movedPiece);
-        movedPiece.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));
-        movedPiece.pieceFile = Chess.charToPieceFile(from.charAt(0));
+        board.put(from, wow);
+        wow.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));
+        wow.pieceFile = Chess.charToPieceFile(from.charAt(0));
+
+
+        if (pieceRemoved) {
+            board.put(to, removedPiece);
+            Chess.pieces.add(board.get(to));
+
+        }
+
+
         
+        return isMovePossible;
+
+
+
     }
 
+    public boolean doesMovePutOpposingKingInCheck (String from, String to) {
+
+        boolean doesmoveputkingincheck = false;
+
+        if (!board.containsKey(from)) {
+            return false;
+        }
+
+        if (!validMove(from, to)) {
+            return false;
+        } 
+
+        boolean pieceRemoved = false;
+        ReturnPiece removedPiece = new ReturnPiece();
+
+        if (board.containsKey(to)) {
+            Chess.pieces.remove(board.get(to));
+            removedPiece = board.remove(to);
+            pieceRemoved = true;
+        }
+
+        ReturnPiece wow = board.remove(from);
+        board.put(to, wow);
+        wow.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
+        wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
+
+
+        if (Chess.isOwnKingInCheck(!Chess.checkPieceColor(wow))) {
+            doesmoveputkingincheck = true;
+
+        }
+
+        board.remove(to);
+        board.put(from, wow);
+        wow.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));
+        wow.pieceFile = Chess.charToPieceFile(from.charAt(0));
+
+
+        if (pieceRemoved) {
+            board.put(to, removedPiece);
+            Chess.pieces.add(board.get(to));
+
+        }
+
+
+        return doesmoveputkingincheck;
+
+
+
+
+    }
+
+    public boolean canPieceBlockPath(String to, boolean Color) {
+
+        boolean isMovePossible = false;
+
+        if (!board.containsKey(to)) {
+            return false;
+        }
+
+        Piece currPieceType = new Pawn();
+
+		for (ReturnPiece setPiece : board.values()) {
+
+            if (Chess.checkPieceColor(setPiece) != Color) {
+                continue;
+            }
+
+			currPieceType = Chess.checkPieceType(setPiece);
+
+			currPieceType.hypotheticalMove(Chess.getPiecePosition(setPiece.pieceFile, setPiece.pieceRank), to);
+			
+		}
+
+        return isMovePossible;
+
+
+    }
 
 
     public void pawnPromotion(String promotionType, ReturnPiece pawn){
