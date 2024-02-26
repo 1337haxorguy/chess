@@ -405,7 +405,7 @@ public class Chess {
 		board.put(getPiecePosition(BlackPawn7.pieceFile,BlackPawn7.pieceRank), BlackPawn7);
 
 		ReturnPiece BlackPawn8 = new ReturnPiece();
-		BlackPawn8.pieceRank = 7;
+		BlackPawn8.pieceRank = 1;
 		BlackPawn8.pieceFile = PieceFile.h;
 		BlackPawn8.pieceType = PieceType.BP;
 		pieces.add(BlackPawn8);
@@ -421,7 +421,7 @@ public class Chess {
 		board.put(getPiecePosition(whiteRook1.pieceFile,whiteRook1.pieceRank), whiteRook1);
 
 		ReturnPiece whiteRook2 = new ReturnPiece();
-		whiteRook2.pieceRank = 1;
+		whiteRook2.pieceRank = 5;
 		whiteRook2.pieceFile = PieceFile.h;
 		whiteRook2.pieceType = PieceType.WR;
 		pieces.add(whiteRook2);

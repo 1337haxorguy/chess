@@ -1,5 +1,7 @@
 package chess;
 
+import chess.ReturnPiece.PieceFile;
+
 public class Knight extends Piece {
 
     public boolean validMove(String from, String to) {
@@ -15,14 +17,12 @@ public class Knight extends Piece {
         ReturnPiece start = board.get(from);
 
         //grabbing destination file and rank from String to
-        ReturnPiece end = new ReturnPiece();
-        end.pieceFile = Chess.charToPieceFile(to.charAt(0));
-        end.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
-
+        PieceFile toFile = Chess.charToPieceFile(to.charAt(0));
+        int toRank = Integer.parseInt(String.valueOf(to.charAt(1)));
 
         // Calculate differences in file and rank to determine if the move is legal.
-        int fileDifference = Math.abs(end.pieceFile.ordinal() - start.pieceFile.ordinal());
-        int rankDifference = Math.abs(end.pieceRank - start.pieceRank);
+        int fileDifference = Math.abs(toFile.ordinal() - start.pieceFile.ordinal());
+        int rankDifference = Math.abs(toRank - start.pieceRank);
 
         // Checking for L-shaped move which is 2 squares one direction, 1 square the other direction vice versa
         boolean isLegalKnightMove = (fileDifference == 2 && rankDifference == 1) || (fileDifference == 1 && rankDifference == 2);
@@ -49,30 +49,51 @@ public class Knight extends Piece {
     public boolean move(String from, String to) {
 
 
-        if (this.validMove(from, to) == false) {
-            System.out.println("invalid move!");
-            return false;
-        } 
-
         if (!board.containsKey(from)) {
+            System.out.println("cannot find start piece");
             return false;
         }
 
+        if (!validMove(from, to)) {
+            System.out.println("this is invalid!");
+            return false;
+        } 
+
+        boolean pieceRemoved = false;
+        ReturnPiece removedPiece = new ReturnPiece();
+
         if (board.containsKey(to)) {
             Chess.pieces.remove(board.get(to));
-            board.remove(to);
-            
+            removedPiece = board.remove(to);
+            pieceRemoved = true;
         }
 
         ReturnPiece wow = board.remove(from);
         board.put(to, wow);
         wow.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
         wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
-        System.out.println(board.get(to).toString());
-        
-        
-        
 
+        System.out.println(wow.pieceRank + "" + wow.pieceFile);
+
+        if (Chess.isOwnKingInCheck(wow)) {
+            System.out.println("invalid move because your king is in check");
+            board.remove(to);
+            board.put(from, wow);
+            wow.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));
+            wow.pieceFile = Chess.charToPieceFile(from.charAt(0));
+    
+
+            if (pieceRemoved) {
+                board.put(to, removedPiece);
+                Chess.pieces.add(board.get(to));
+
+            }
+
+            return false;
+
+        }
+
+        
         return true;
 
 
