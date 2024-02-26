@@ -28,26 +28,29 @@ public class Queen extends Piece {
 
             // Check if there are any pieces blocking the path
             if (start.pieceFile == destination.pieceFile) { // Moving vertically
-
-
                 int step = Integer.compare(destination.pieceRank, start.pieceRank);
-
                 for (int rank = start.pieceRank + step; rank != destination.pieceRank; rank += step) {
                     if (board.containsKey(Chess.getPiecePosition(start.pieceFile, rank))) {
                         return false; // Path is blocked
                     }
                 }
             } else { // Moving horizontally
+                System.out.println("MOVING HORIZONTALLY");
+                System.out.println(to);
+                System.out.println(destination.pieceFile.compareTo(start.pieceFile));
 
-                int step = destination.pieceFile.compareTo(start.pieceFile);
+                int destinationOrd = destination.pieceFile.ordinal();
+                int startOrd = start.pieceFile.ordinal();
 
+                int step = Integer.compare(destinationOrd, startOrd); // Use Integer.compare method
                 for (int file = start.pieceFile.ordinal() + step; file != destination.pieceFile.ordinal(); file += step) {
+                    System.out.println(Chess.getPiecePosition(PieceFile.values()[file], start.pieceRank));
                     if (board.containsKey(Chess.getPiecePosition(PieceFile.values()[file], start.pieceRank))) {
                         return false; // Path is blocked
                     }
                 }
             }
-            return true; // Valid move
+                        return true; // Valid move
         } else {
 
 
