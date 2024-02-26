@@ -87,6 +87,7 @@ public abstract class Piece {
 
 
         if (Chess.isOwnKingInCheck(wow)) {
+            System.out.println("THIS IS WHERE IT IS FALSE");
             isMovePossible = false;
 
         }

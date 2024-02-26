@@ -30,26 +30,29 @@ public class Rook extends Piece {
 
             // Check if there are any pieces blocking the path
             if (start.pieceFile == destination.pieceFile) { // Moving vertically
-
-
                 int step = Integer.compare(destination.pieceRank, start.pieceRank);
-
                 for (int rank = start.pieceRank + step; rank != destination.pieceRank; rank += step) {
                     if (board.containsKey(Chess.getPiecePosition(start.pieceFile, rank))) {
                         return false; // Path is blocked
                     }
                 }
             } else { // Moving horizontally
+                System.out.println("MOVING HORIZONTALLY");
+                System.out.println(to);
+                System.out.println(destination.pieceFile.compareTo(start.pieceFile));
 
-                int step = destination.pieceFile.compareTo(start.pieceFile);
+                int destinationOrd = destination.pieceFile.ordinal();
+                int startOrd = start.pieceFile.ordinal();
 
+                int step = Integer.compare(destinationOrd, startOrd); // Use Integer.compare method
                 for (int file = start.pieceFile.ordinal() + step; file != destination.pieceFile.ordinal(); file += step) {
+                    System.out.println(Chess.getPiecePosition(PieceFile.values()[file], start.pieceRank));
                     if (board.containsKey(Chess.getPiecePosition(PieceFile.values()[file], start.pieceRank))) {
                         return false; // Path is blocked
                     }
                 }
             }
-            return true; // Valid move
+                        return true; // Valid move
         }
 
         return false; // Invalid move for a Rook
@@ -59,10 +62,13 @@ public class Rook extends Piece {
 
 
         if (!board.containsKey(from)) {
+            System.out.println("cant find from");
+
             return false;
         }
 
         if (!validMove(from, to)) {
+            System.out.println("invalid move");
             return false;
         } 
 
@@ -82,6 +88,8 @@ public class Rook extends Piece {
 
 
         if (Chess.isOwnKingInCheck(wow)) {
+            System.out.println("own king is in check");
+
             board.remove(to);
             board.put(from, wow);
             wow.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));
@@ -98,13 +106,13 @@ public class Rook extends Piece {
 
         }
 
-        if (from == "a1") {
+        if (from.equals("a1")) {
             Chess.hasWhiteRookQueenSideMoved = true;
-        } else if (from == "h1") {
+        } else if (from.equals("h1")) {
             Chess.hasWhiteRookKingSideMoved = true;
-        } else if (from == "a8") {
+        } else if (from.equals("a8")) {
             Chess.hasBlackRookQueenSideMoved = true;
-        } else if (from == "h8") {
+        } else if (from.equals("h8")) {
             Chess.hasBlackRookKingSideMoved = true;
         }
         return true;
