@@ -1,7 +1,6 @@
 package chess;
 
 
-
 public class Pawn extends Piece {
 
     public boolean validMove(String from, String to) {
@@ -51,7 +50,7 @@ public class Pawn extends Piece {
 
         if (pawnFirstMove && Math.abs(destination.pieceRank- start.pieceRank)==2){
             String oneSquarePosition= Chess.getPiecePosition(start.pieceFile, start.pieceRank + direction);
-            String twoSquarePosition= Chess.getPiecePosition(start.pieceFile, start.pieceRank + direction);
+            String twoSquarePosition= Chess.getPiecePosition(start.pieceFile, start.pieceRank + (2* direction));
 
             if (!board.containsKey(oneSquarePosition)&& !board.containsKey(twoSquarePosition)){
                 //this will mean that the pawn has two clear squares in front of it
