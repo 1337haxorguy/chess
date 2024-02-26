@@ -135,7 +135,6 @@ public class Pawn extends Piece {
         wow.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
         wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
 
-        System.out.println(wow.pieceRank + "" + wow.pieceFile);
 
         if (Chess.isOwnKingInCheck(wow)) {
             System.out.println("invalid move because your king is in check");

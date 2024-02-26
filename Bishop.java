@@ -5,7 +5,6 @@ public class Bishop extends Piece {
     public  boolean validMove(String from, String to) {
 
         if (!board.containsKey(from)) {
-            System.out.println("cannot find start piece");
             return false;
         }
         
@@ -25,23 +24,16 @@ public class Bishop extends Piece {
             return false; 
         }
 
-        System.out.println("Moving like a bishop");
 
         int fileDiff = Math.abs(start.pieceFile.ordinal() - destination.pieceFile.ordinal());
         int rankDiff = Math.abs(start.pieceRank - destination.pieceRank);
         if (fileDiff != rankDiff) {
-            System.out.println(start.pieceRank + " " + destination.pieceRank);
-
-            System.out.println(fileDiff + " " + rankDiff);
-            System.out.println("diffs are not the same");
             return false; 
         }
 
         int tempStartFile = start.pieceFile.ordinal();
         int tempStartRank = start.pieceRank;
         if (start.pieceFile.ordinal() < destination.pieceFile.ordinal() && start.pieceRank < destination.pieceRank) { //moving in first quadrant
-            System.out.println("First quad movement");
-            System.out.println(Chess.getPiecePosition(tempStartFile, tempStartRank));
             tempStartFile++;
             tempStartRank++;    
 
@@ -49,9 +41,6 @@ public class Bishop extends Piece {
 
             while (tempStartRank < destination.pieceRank && tempStartFile < destination.pieceFile.ordinal() + 1) {
                 if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
-                    System.out.println(Chess.getPiecePosition(tempStartFile, tempStartRank));
-
-                    System.out.println("wowee");
 
                     return false;
                 }

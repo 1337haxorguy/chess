@@ -9,10 +9,8 @@ public class King extends Piece {
     public boolean castlingLeft = false;
 
     public boolean validMove(String from, String to) {
-        System.out.println("running valid move with king " + from + " " + to);
 
         if (!board.containsKey(from)) {
-            System.out.println("cannot find start piece");
             return false;
         }
         
@@ -117,15 +115,12 @@ public class King extends Piece {
     public boolean move(String from, String to) {
 
 
-        System.out.println("called move with type king");
 
         if (!board.containsKey(from)) {
-            System.out.println("cannot find start piece");
             return false;
         }
 
         if (!validMove(from, to)) {
-            System.out.println("this is invalid!");
             return false;
         } 
 
@@ -144,7 +139,6 @@ public class King extends Piece {
         wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
 
         if (Chess.isOwnKingInCheck(wow)) {
-            System.out.println("invalid move because your king is in check");
             board.remove(to);
             board.put(from, wow);
             wow.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));
@@ -184,7 +178,6 @@ public class King extends Piece {
 
         }
 
-        System.out.println("Moved king to " + wow.pieceFile + wow.pieceRank);
 
         if (from == "e1") {
             Chess.hasWhiteKingMoved = true;

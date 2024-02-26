@@ -9,7 +9,6 @@ public class Rook extends Piece {
     public boolean validMove(String from, String to) {
 
         if (!board.containsKey(from)) {
-            System.out.println("cannot find start piece");
             return false;
         }
         
@@ -31,14 +30,12 @@ public class Rook extends Piece {
 
             // Check if there are any pieces blocking the path
             if (start.pieceFile == destination.pieceFile) { // Moving vertically
-                System.out.println("Moving vertically");
 
 
                 int step = Integer.compare(destination.pieceRank, start.pieceRank);
 
                 for (int rank = start.pieceRank + step; rank != destination.pieceRank; rank += step) {
                     if (board.containsKey(Chess.getPiecePosition(start.pieceFile, rank))) {
-                        System.out.println("path blocked");
                         return false; // Path is blocked
                     }
                 }
@@ -62,12 +59,10 @@ public class Rook extends Piece {
 
 
         if (!board.containsKey(from)) {
-            System.out.println("cannot find start piece");
             return false;
         }
 
         if (!validMove(from, to)) {
-            System.out.println("this is invalid!");
             return false;
         } 
 
@@ -85,10 +80,8 @@ public class Rook extends Piece {
         wow.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
         wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
 
-        System.out.println(wow.pieceRank + "" + wow.pieceFile);
 
         if (Chess.isOwnKingInCheck(wow)) {
-            System.out.println("invalid move because your king is in check");
             board.remove(to);
             board.put(from, wow);
             wow.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));

@@ -7,15 +7,10 @@ public class Queen extends Piece {
     public boolean validMove(String from, String to) {
 
         if (!board.containsKey(from)) {
-            System.out.println("cannot find start piece");
             return false;
         }
         
         ReturnPiece start = board.get(from);
-        System.out.println(from);
-
-        System.out.println(start);
-        System.out.println(start.pieceRank);
         ReturnPiece destination = new ReturnPiece();
         destination.pieceFile = Chess.charToPieceFile(to.charAt(0));
         destination.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
@@ -33,14 +28,12 @@ public class Queen extends Piece {
 
             // Check if there are any pieces blocking the path
             if (start.pieceFile == destination.pieceFile) { // Moving vertically
-                System.out.println("Moving vertically");
 
 
                 int step = Integer.compare(destination.pieceRank, start.pieceRank);
 
                 for (int rank = start.pieceRank + step; rank != destination.pieceRank; rank += step) {
                     if (board.containsKey(Chess.getPiecePosition(start.pieceFile, rank))) {
-                        System.out.println("path blocked");
                         return false; // Path is blocked
                     }
                 }
@@ -57,23 +50,16 @@ public class Queen extends Piece {
             return true; // Valid move
         } else {
 
-            System.out.println("Moving like a bishop");
 
             int fileDiff = Math.abs(start.pieceFile.ordinal() - destination.pieceFile.ordinal());
             int rankDiff = Math.abs(start.pieceRank - destination.pieceRank);
             if (fileDiff != rankDiff) {
-                System.out.println(start.pieceRank + " " + destination.pieceRank);
-
-                System.out.println(fileDiff + " " + rankDiff);
-                System.out.println("diffs are not the same");
                 return false; 
             }
     
             int tempStartFile = start.pieceFile.ordinal();
             int tempStartRank = start.pieceRank;
             if (start.pieceFile.ordinal() < destination.pieceFile.ordinal() && start.pieceRank < destination.pieceRank) { //moving in first quadrant
-                System.out.println("First quad movement");
-                System.out.println(Chess.getPiecePosition(tempStartFile, tempStartRank));
                 tempStartFile++;
                 tempStartRank++;    
 
@@ -81,9 +67,6 @@ public class Queen extends Piece {
 
                 while (tempStartRank < destination.pieceRank && tempStartFile < destination.pieceFile.ordinal() + 1) {
                     if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
-                        System.out.println(Chess.getPiecePosition(tempStartFile, tempStartRank));
-
-                        System.out.println("wowee");
 
                         return false;
                     }

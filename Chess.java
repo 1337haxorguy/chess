@@ -152,28 +152,26 @@ public class Chess {
 			defendingKing = pieces.get(1);
 		}
 		// MOVE OUT OF THE MATE (ARE ALL EIGHT SQUARES UNDER ATTACK?)
-		if (color) { //white king
 
-			ReturnPiece king = pieces.get(0);
 
 			for (int i = 0; i < 3; i ++) {
         		
-				if (king.pieceRank < 8) {
-					if (currPieceType.validMove(getPiecePosition(king.pieceFile, king.pieceRank), getPiecePosition(king.pieceFile.ordinal()-1 + i, king.pieceRank+1))) {
+				if (defendingKing.pieceRank < 8) {
+					if (currPieceType.validMove(getPiecePosition(defendingKing.pieceFile, defendingKing.pieceRank), getPiecePosition(defendingKing.pieceFile.ordinal()-1 + i, defendingKing.pieceRank+1))) {
 						return false;
 					}
 				}
 
-				if (currPieceType.validMove(getPiecePosition(king.pieceFile, king.pieceRank), 
-				getPiecePosition(king.pieceFile.ordinal()-1 + i, king.pieceRank)) 
-				|| currPieceType.validMove(getPiecePosition(king.pieceFile, king.pieceRank), 
-				getPiecePosition(king.pieceFile.ordinal()+1 + i, king.pieceRank))) {
+				if (currPieceType.validMove(getPiecePosition(defendingKing.pieceFile, defendingKing.pieceRank), 
+				getPiecePosition(defendingKing.pieceFile.ordinal()-1 + i, defendingKing.pieceRank)) 
+				|| currPieceType.validMove(getPiecePosition(defendingKing.pieceFile, defendingKing.pieceRank), 
+				getPiecePosition(defendingKing.pieceFile.ordinal()+1 + i, defendingKing.pieceRank))) {
 					return false;
 				}
 
 
-				if (currPieceType.validMove(getPiecePosition(king.pieceFile, king.pieceRank), 
-				getPiecePosition(king.pieceFile.ordinal()-1 + i, king.pieceRank-1))) {
+				if (currPieceType.validMove(getPiecePosition(defendingKing.pieceFile, defendingKing.pieceRank), 
+				getPiecePosition(defendingKing.pieceFile.ordinal()-1 + i, defendingKing.pieceRank-1))) {
 					return false;
 				}
 
@@ -211,7 +209,7 @@ public class Chess {
 						}
 					}
 				}
-			}
+			
 	
 			if (attackerCounter > 1) {
 				return true;
@@ -221,7 +219,7 @@ public class Chess {
 
 			//can you take attacker???
 
-			if (canPieceMoveToSpot(getPiecePosition(attacker.pieceFile, attacker.pieceRank), currentPiece)) {
+			if (canPieceMoveToSpot(getPiecePosition(attacker.pieceFile, attacker.pieceRank))) {
 				return false;
 			}
 
@@ -235,7 +233,7 @@ public class Chess {
 					if (attacker.pieceRank > defendingKing.pieceRank) {
 
 						for (int i = attacker.pieceRank-1; i > defendingKing.pieceRank; i--) {
-							if (canPieceMoveToSpot(getPiecePosition(attacker.pieceFile, i), currentPiece)) {
+							if (canPieceMoveToSpot(getPiecePosition(attacker.pieceFile, i))) {
 								return false; 
 							}
 						}
@@ -243,7 +241,7 @@ public class Chess {
 					} else {
 
 						for (int i = attacker.pieceRank+1; i > defendingKing.pieceRank; i++) {
-							if (canPieceMoveToSpot(getPiecePosition(attacker.pieceFile, i), currentPiece)) {
+							if (canPieceMoveToSpot(getPiecePosition(attacker.pieceFile, i))) {
 								return false; 
 							}
 						}
@@ -253,7 +251,7 @@ public class Chess {
 					if (attacker.pieceFile.ordinal() > defendingKing.pieceFile.ordinal()) {
 
 						for (int i = attacker.pieceFile.ordinal()-1; i > defendingKing.pieceFile.ordinal(); i--) {
-							if (canPieceMoveToSpot(getPiecePosition(i, attacker.pieceRank), currentPiece)) {
+							if (canPieceMoveToSpot(getPiecePosition(i, attacker.pieceRank))) {
 								return false; 
 							}
 						}
@@ -261,7 +259,7 @@ public class Chess {
 					} else {
 
 						for (int i = attacker.pieceRank+1; i > defendingKing.pieceRank; i++) {
-							if (canPieceMoveToSpot(getPiecePosition(i, attacker.pieceRank), currentPiece)) {
+							if (canPieceMoveToSpot(getPiecePosition(i, attacker.pieceRank))) {
 								return false; 
 							}
 						}
@@ -281,14 +279,16 @@ public class Chess {
 			}
 	
 
-			int tempStartFile = attacker.pieceFile.ordinal() + 1;
+			int tempStartFile = attacker.pieceFile.ordinal();
 			int tempStartRank = attacker.pieceRank;
 	
 			if (movingBishop) {
 			if (attacker.pieceFile.ordinal() < defendingKing.pieceFile.ordinal() && attacker.pieceRank < defendingKing.pieceRank) { //moving in first quadrant
+				tempStartFile++;
+				tempStartRank++;    
 
 				while (tempStartRank < defendingKing.pieceRank && tempStartFile < defendingKing.pieceFile.ordinal() + 1) {
-					if (canPieceMoveToSpot(Chess.getPiecePosition(tempStartFile, tempStartRank), currentPiece)) {
+					if (canPieceMoveToSpot(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
 						cannotBeBlocked = true;
 					}
 					tempStartFile++;
@@ -296,9 +296,11 @@ public class Chess {
 				}
 	
 			} else if (attacker.pieceFile.ordinal() > defendingKing.pieceFile.ordinal() && attacker.pieceRank < defendingKing.pieceRank) { //second quadrant
-	
+				tempStartFile--;
+				tempStartRank++;
+
 				while (tempStartRank < defendingKing.pieceRank && tempStartFile > defendingKing.pieceFile.ordinal() + 1) {
-					if (canPieceMoveToSpot(Chess.getPiecePosition(tempStartFile, tempStartRank), currentPiece)) {
+					if (canPieceMoveToSpot(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
 						cannotBeBlocked = true;
 					}
 					tempStartFile--;
@@ -307,9 +309,11 @@ public class Chess {
 	
 	
 			} else if (attacker.pieceFile.ordinal() > defendingKing.pieceFile.ordinal() && attacker.pieceRank > defendingKing.pieceRank) { //third quadrant
-	
+				tempStartFile--;
+				tempStartRank--;
+
 				while (tempStartRank > defendingKing.pieceRank && tempStartFile > defendingKing.pieceFile.ordinal() + 1) {
-					if (canPieceMoveToSpot(Chess.getPiecePosition(tempStartFile, tempStartRank), currentPiece)) {
+					if (canPieceMoveToSpot(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
 						cannotBeBlocked = true;
 					}
 					tempStartFile--;
@@ -318,9 +322,11 @@ public class Chess {
 	
 	
 			} else if (attacker.pieceFile.ordinal() < defendingKing.pieceFile.ordinal() && attacker.pieceRank > defendingKing.pieceRank) { //fourth quadrant
-	
+				tempStartFile++;
+				tempStartRank--;
+
 				while (tempStartRank > defendingKing.pieceRank && tempStartFile < defendingKing.pieceFile.ordinal() + 1) {
-					if (canPieceMoveToSpot(Chess.getPiecePosition(tempStartFile, tempStartRank), currentPiece)) {
+					if (canPieceMoveToSpot(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
 						cannotBeBlocked = true;
 					}
 					tempStartFile++;
@@ -336,6 +342,218 @@ public class Chess {
 		}
 		return cannotBeBlocked;
 	}
+
+	public static boolean checkForCheckMate(boolean color) { //true for checkmate
+		//color is true for white and false for black
+
+		// CAN YOU MOVE OUT OF THE MATE
+		// CAN YOU BLOCK THE MATE
+		// CAN YOU TAKE THE ATTACKER
+		boolean cannotBeBlocked = false;
+		Piece currPieceType = new King();
+		ReturnPiece defendingKing = new ReturnPiece();
+		if (color) {
+			defendingKing = pieces.get(0);
+		} else {
+			defendingKing = pieces.get(1);
+		}
+		// MOVE OUT OF THE MATE (ARE ALL EIGHT SQUARES UNDER ATTACK?)
+
+
+			for (int i = 0; i < 3; i ++) {
+        		
+				if (defendingKing.pieceRank < 8) {
+					if (currPieceType.validMove(getPiecePosition(defendingKing.pieceFile, defendingKing.pieceRank), getPiecePosition(defendingKing.pieceFile.ordinal()-1 + i, defendingKing.pieceRank+1))) {
+						return false;
+					}
+				}
+
+				if (currPieceType.validMove(getPiecePosition(defendingKing.pieceFile, defendingKing.pieceRank), 
+				getPiecePosition(defendingKing.pieceFile.ordinal()-1 + i, defendingKing.pieceRank)) 
+				|| currPieceType.validMove(getPiecePosition(defendingKing.pieceFile, defendingKing.pieceRank), 
+				getPiecePosition(defendingKing.pieceFile.ordinal()+1 + i, defendingKing.pieceRank))) {
+					return false;
+				}
+
+
+				if (currPieceType.validMove(getPiecePosition(defendingKing.pieceFile, defendingKing.pieceRank), 
+				getPiecePosition(defendingKing.pieceFile.ordinal()-1 + i, defendingKing.pieceRank-1))) {
+					return false;
+				}
+
+			} 
+			//NOW KING CANNOT MOVE
+			//if there are multiple attackers, blocking one or taking one wont do anything
+
+			int attackerCounter = 0;
+			ReturnPiece attacker = new ReturnPiece();
+
+			ReturnPiece whiteKing = pieces.get(0);
+			ReturnPiece blackKing = pieces.get(1);
+			for (ReturnPiece setPiece : board.values()) {
+
+				currPieceType = Chess.checkPieceType(setPiece);
+	
+				if (setPiece != pieces.get(0) && setPiece != pieces.get(1)) {
+	
+					if (color) { // Piece is white
+	
+						if (currPieceType.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
+								getPiecePosition(whiteKing.pieceFile, whiteKing.pieceRank))) {
+							System.out.println("IN CHECK BY TYPE" + setPiece.pieceType);
+							attackerCounter++;
+							attacker = setPiece;
+						}
+	
+					} else { // piece is black
+	
+						if (currPieceType.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
+								getPiecePosition(blackKing.pieceFile, blackKing.pieceRank))) {
+							System.out.println("IN CHECK BY TYPE" + setPiece.pieceType);
+							attackerCounter++;
+							attacker = setPiece;
+						}
+					}
+				}
+			
+	
+			if (attackerCounter > 1) {
+				return true;
+			} else if (attackerCounter == 0) {
+				return false;
+			}
+		}
+
+			//can you take attacker???
+
+				if (canPieceMoveToSpot(getPiecePosition(attacker.pieceFile, attacker.pieceRank))) {
+					return false;
+				}
+
+			
+
+
+
+			//can you block attacker????
+			if (attacker.pieceType == PieceType.BN || attacker.pieceType == PieceType.WN || attacker.pieceType == PieceType.WP || attacker.pieceType == PieceType.BP) {
+				cannotBeBlocked = true;
+			}
+
+		if (attacker.pieceType == PieceType.BR || attacker.pieceType == PieceType.WR || attacker.pieceType == PieceType.BQ || attacker.pieceType == PieceType.WQ) {
+				if (attacker.pieceFile.ordinal() == defendingKing.pieceFile.ordinal() ){
+					if (attacker.pieceRank > defendingKing.pieceRank) {
+
+						for (int i = attacker.pieceRank-1; i > defendingKing.pieceRank; i--) {
+							if (canPieceMoveToSpot(getPiecePosition(attacker.pieceFile, i))) {
+								return false; 
+							}
+						}
+
+					} else {
+
+						for (int i = attacker.pieceRank+1; i > defendingKing.pieceRank; i++) {
+							if (canPieceMoveToSpot(getPiecePosition(attacker.pieceFile, i))) {
+								return false; 
+							}
+						}
+
+					}
+				} else if (attacker.pieceRank == defendingKing.pieceRank){
+					if (attacker.pieceFile.ordinal() > defendingKing.pieceFile.ordinal()) {
+
+						for (int i = attacker.pieceFile.ordinal()-1; i > defendingKing.pieceFile.ordinal(); i--) {
+							if (canPieceMoveToSpot(getPiecePosition(i, attacker.pieceRank))) {
+								return false; 
+							}
+						}
+
+					} else {
+
+						for (int i = attacker.pieceRank+1; i > defendingKing.pieceRank; i++) {
+							if (canPieceMoveToSpot(getPiecePosition(i, attacker.pieceRank))) {
+								return false; 
+							}
+						}
+
+					}
+
+				}
+			}
+
+		if (attacker.pieceType == PieceType.BB || attacker.pieceType == PieceType.WB || attacker.pieceType == PieceType.BQ || attacker.pieceType == PieceType.WQ) {
+
+			boolean movingBishop = true;
+			int fileDiff = Math.abs(attacker.pieceFile.ordinal() - defendingKing.pieceFile.ordinal());
+			int rankDiff = Math.abs(attacker.pieceRank - defendingKing.pieceRank);
+			if (fileDiff != rankDiff) {
+				movingBishop = false;
+			}
+	
+
+			int tempStartFile = attacker.pieceFile.ordinal();
+			int tempStartRank = attacker.pieceRank;
+	
+			if (movingBishop) {
+			if (attacker.pieceFile.ordinal() < defendingKing.pieceFile.ordinal() && attacker.pieceRank < defendingKing.pieceRank) { //moving in first quadrant
+				tempStartFile++;
+				tempStartRank++;    
+
+				while (tempStartRank < defendingKing.pieceRank && tempStartFile < defendingKing.pieceFile.ordinal() + 1) {
+					if (canPieceMoveToSpot(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
+						cannotBeBlocked = true;
+					}
+					tempStartFile++;
+					tempStartRank++;    
+				}
+	
+			} else if (attacker.pieceFile.ordinal() > defendingKing.pieceFile.ordinal() && attacker.pieceRank < defendingKing.pieceRank) { //second quadrant
+				tempStartFile--;
+				tempStartRank++;
+
+				while (tempStartRank < defendingKing.pieceRank && tempStartFile > defendingKing.pieceFile.ordinal() + 1) {
+					if (canPieceMoveToSpot(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
+						cannotBeBlocked = true;
+					}
+					tempStartFile--;
+					tempStartRank++;
+				}
+	
+	
+			} else if (attacker.pieceFile.ordinal() > defendingKing.pieceFile.ordinal() && attacker.pieceRank > defendingKing.pieceRank) { //third quadrant
+				tempStartFile--;
+				tempStartRank--;
+
+				while (tempStartRank > defendingKing.pieceRank && tempStartFile > defendingKing.pieceFile.ordinal() + 1) {
+					if (canPieceMoveToSpot(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
+						cannotBeBlocked = true;
+					}
+					tempStartFile--;
+					tempStartRank--;
+				}
+	
+	
+			} else if (attacker.pieceFile.ordinal() < defendingKing.pieceFile.ordinal() && attacker.pieceRank > defendingKing.pieceRank) { //fourth quadrant
+				tempStartFile++;
+				tempStartRank--;
+
+				while (tempStartRank > defendingKing.pieceRank && tempStartFile < defendingKing.pieceFile.ordinal() + 1) {
+					if (canPieceMoveToSpot(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
+						cannotBeBlocked = true;
+					}
+					tempStartFile++;
+					tempStartRank--;
+				}
+	
+	
+			}
+		}
+	
+		}
+
+		
+		return cannotBeBlocked;
+	}
+
 
 	public static boolean isOwnKingInCheck(ReturnPiece returnPiece) {
 
@@ -361,9 +579,6 @@ public class Chess {
 
 					if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
 							getPiecePosition(blackKing.pieceFile, blackKing.pieceRank))) {
-								System.out.println(setPiece);
-								System.out.println(board.get("d7"));
-								System.out.println("Can you move to d7?" + currPiece.validMove("b5", "d7"));
 		
 						System.out.println("IN CHECK BY TYPE" + setPiece.pieceType);
 						return true;
@@ -374,21 +589,21 @@ public class Chess {
 		return false;
 	}
 
-	public static boolean canPieceMoveToSpot(String to, ReturnPiece currentPiece) {
+	public static boolean isOwnKingInCheck(boolean color) {
 
-		Piece currPieceType = new Pawn();
 		ReturnPiece whiteKing = pieces.get(0);
 		ReturnPiece blackKing = pieces.get(1);
 
+		Piece currPiece = new Pawn();
 		for (ReturnPiece setPiece : board.values()) {
 
-			currPieceType = Chess.checkPieceType(setPiece);
+			currPiece = Chess.checkPieceType(setPiece);
 
-			if (setPiece != pieces.get(0) && setPiece != pieces.get(1)) {
+			if (setPiece != whiteKing && setPiece != blackKing) {
 
-				if (currentPiece.pieceType.ordinal() / 6 == 0) { // Piece is white
+				if (color) { // Piece is white
 
-					if (currPieceType.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
+					if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
 							getPiecePosition(whiteKing.pieceFile, whiteKing.pieceRank))) {
 						System.out.println("IN CHECK BY TYPE" + setPiece.pieceType);
 						return true;
@@ -396,13 +611,34 @@ public class Chess {
 
 				} else { // piece is black
 
-					if (currPieceType.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
+					if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
 							getPiecePosition(blackKing.pieceFile, blackKing.pieceRank))) {
+		
 						System.out.println("IN CHECK BY TYPE" + setPiece.pieceType);
 						return true;
 					}
 				}
 			}
+		}
+		return false;
+	}
+
+
+	public static boolean canPieceMoveToSpot(String to) {
+
+		Piece currPieceType = new Pawn();
+
+		for (ReturnPiece setPiece : board.values()) {
+
+			currPieceType = Chess.checkPieceType(setPiece);
+
+					if (currPieceType.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
+							to)) {
+						return true;
+					}
+
+				
+			
 		}
 
 		return false;
@@ -479,7 +715,6 @@ public class Chess {
 
 				currentPiece = checkPieceType(board.get(from));
 				if (currentPiece.move(from, to)) {
-					System.out.println("wowee");
 
 					if (turn) {
 						turn = false;
@@ -487,14 +722,18 @@ public class Chess {
 						turn = true;
 					}
 
-					if (isOwnKingInCheck(board.get(to))) {
-						if (checkForCheckMate(board.get(to)) && !checkPieceColor(board.get(to))) {
+					if (isOwnKingInCheck(turn)) {
+						returnPlay.message = Message.CHECK;
+
+						if (checkForCheckMate(turn) && turn == false) {
 							returnPlay.message = Message.CHECKMATE_WHITE_WINS;
-						} else if (checkForCheckMate(board.get(from)) && !checkPieceColor(board.get(to))) {
+						} else if (checkForCheckMate(turn) && turn == true) {
 							returnPlay.message = Message.CHECKMATE_BLACK_WINS;
 						}
-						returnPlay.message = Message.CHECK;
+					} else if (isOwnKingInCheck(!turn)){
+						returnPlay.message = Message.ILLEGAL_MOVE;
 					}
+
 				} else {
 					returnPlay.message = Message.ILLEGAL_MOVE;
 				}
@@ -578,7 +817,7 @@ public class Chess {
 		board.put(getPiecePosition(WhitePawn4.pieceFile, WhitePawn4.pieceRank), WhitePawn4);
 
 		ReturnPiece WhitePawn5 = new ReturnPiece();
-		WhitePawn5.pieceRank = 3;
+		WhitePawn5.pieceRank = 2;
 		WhitePawn5.pieceFile = PieceFile.e;
 		WhitePawn5.pieceType = PieceType.WP;
 		pieces.add(WhitePawn5);
@@ -756,7 +995,7 @@ public class Chess {
 		// QUEENS
 
 		ReturnPiece whiteQueen = new ReturnPiece();
-		whiteQueen.pieceRank = 1;
+		whiteQueen.pieceRank = 3;
 		whiteQueen.pieceFile = PieceFile.d;
 		whiteQueen.pieceType = PieceType.WQ;
 		pieces.add(whiteQueen);
