@@ -114,8 +114,6 @@ public class King extends Piece {
 
     public boolean move(String from, String to) {
 
-
-
         if (!board.containsKey(from)) {
             return false;
         }

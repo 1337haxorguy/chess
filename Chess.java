@@ -144,7 +144,7 @@ public class Chess {
 		// CAN YOU MOVE OUT OF THE MATE
 		// CAN YOU BLOCK THE MATE
 		// CAN YOU TAKE THE ATTACKER
-		boolean cannotBeBlocked = false;
+		boolean cannotBeBlocked = true;
 		Piece currPieceType = new King();
 		ReturnPiece defendingKing = new ReturnPiece();
 		if (color) {
@@ -174,7 +174,7 @@ public class Chess {
 						getPiecePosition(PieceFile.values()[defendingKing.pieceFile.ordinal() + fileOffset],
 
 								defendingKing.pieceRank + rankOffset))) {
-
+					System.out.println("KING CAN MOVE");
 					return false;
 				}
 
@@ -219,12 +219,17 @@ public class Chess {
 		}
 
 		if (attackerCounter > 1) {
+			System.out.println("Attacker is: MORE THAN 1");
+
 			return true;
 		} else if (attackerCounter == 0) {
+			System.out.println("Attacker is: NONE");
+
 			return false;
 		}
 
-		System.out.println("ONLY ONE ATTACKER");
+
+		System.out.println("Attacker is: " + attacker);
 
 		// can you take attacker???
 
@@ -241,6 +246,7 @@ public class Chess {
 
 		if (attacker.pieceType == PieceType.BR || attacker.pieceType == PieceType.WR
 				|| attacker.pieceType == PieceType.BQ || attacker.pieceType == PieceType.WQ) {
+					System.out.println("attacker: " + attacker.pieceRank + " defender: " + defendingKing.pieceRank);
 			if (attacker.pieceFile.ordinal() == defendingKing.pieceFile.ordinal()) {
 				if (attacker.pieceRank > defendingKing.pieceRank) {
 
@@ -261,6 +267,7 @@ public class Chess {
 
 				}
 			} else if (attacker.pieceRank == defendingKing.pieceRank) {
+				System.out.println("horizontal check");
 				if (attacker.pieceFile.ordinal() > defendingKing.pieceFile.ordinal()) {
 
 					for (int i = attacker.pieceFile.ordinal() - 1; i >= defendingKing.pieceFile.ordinal(); i--) {
@@ -370,25 +377,37 @@ public class Chess {
 
 			currPiece = Chess.checkPieceType(setPiece);
 
-			if (setPiece != whiteKing && setPiece != blackKing) {
+			
 
 				if (returnPiece.pieceType.ordinal() / 6 == 0) { // Piece is white
 
-					if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
-							getPiecePosition(whiteKing.pieceFile, whiteKing.pieceRank))) {
+					if (returnPiece != blackKing) {
 
-						return true;
+						if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
+						getPiecePosition(whiteKing.pieceFile, whiteKing.pieceRank))) {
+
+					return true;
+
+
+					}
+
 					}
 
 				} else { // piece is black
 
-					if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
-							getPiecePosition(blackKing.pieceFile, blackKing.pieceRank))) {
+					if (returnPiece != whiteKing) {
 
-						return true;
-					}
+						if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
+						getPiecePosition(blackKing.pieceFile, blackKing.pieceRank))) {
+
+					return true;
 				}
-			}
+
+
+					}
+
+				}
+			
 		}
 		return false;
 	}
@@ -596,12 +615,14 @@ public class Chess {
 
 		ReturnPiece whiteKing = new ReturnPiece();
 		whiteKing.pieceRank = 1;
-		whiteKing.pieceFile = PieceFile.e;
+		whiteKing.pieceFile = PieceFile.g;
 		whiteKing.pieceType = PieceType.WK;
 		pieces.add(whiteKing);
 		board.put(getPiecePosition(whiteKing.pieceFile, whiteKing.pieceRank), whiteKing);
 
 		ReturnPiece blackKing = new ReturnPiece();
+		blackKing.pieceRank = 8;
+		blackKing.pieceFile = PieceFile.e;
 		blackKing.pieceRank = 8;
 		blackKing.pieceFile = PieceFile.e;
 		blackKing.pieceType = PieceType.BK;
@@ -658,13 +679,13 @@ public class Chess {
 		board.put(getPiecePosition(WhitePawn6.pieceFile, WhitePawn6.pieceRank),
 		WhitePawn6);
 
-		ReturnPiece WhitePawn7 = new ReturnPiece();
-		WhitePawn7.pieceRank = 2;
-		WhitePawn7.pieceFile = PieceFile.g;
-		WhitePawn7.pieceType = PieceType.WP;
-		pieces.add(WhitePawn7);
-		board.put(getPiecePosition(WhitePawn7.pieceFile, WhitePawn7.pieceRank),
-		WhitePawn7);
+		// ReturnPiece WhitePawn7 = new ReturnPiece();
+		// WhitePawn7.pieceRank = 7;
+		// WhitePawn7.pieceFile = PieceFile.d;
+		// WhitePawn7.pieceType = PieceType.WP;
+		// pieces.add(WhitePawn7);
+		// board.put(getPiecePosition(WhitePawn7.pieceFile, WhitePawn7.pieceRank),
+		// WhitePawn7);
 
 		ReturnPiece WhitePawn8 = new ReturnPiece();
 		WhitePawn8.pieceRank = 2;
