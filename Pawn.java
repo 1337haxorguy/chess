@@ -72,15 +72,23 @@ public class Pawn extends Piece {
         }
 
         // Check for a valid capture move (one square diagonally)
-        if (Math.abs(destination.pieceFile.ordinal() - start.pieceFile.ordinal()) == 1 && (destination.pieceRank - start.pieceRank) == direction) {
-            // There must be an opponent's piece at the target space
-            String toPosition = destination.pieceFile.toString()+ destination.pieceRank;
-            ReturnPiece targetPiece = board.get(toPosition);
-            //if the piece is there and not the same color
-            if (targetPiece != null && targetPiece.pieceType != start.pieceType) {
-                return true;
+        if (Math.abs(destination.pieceFile.ordinal() - start.pieceFile.ordinal()) == 1) {
+        // Diagonal move
+            if ((destination.pieceRank - start.pieceRank) == direction) {
+                // Move is in the correct direction (forward for the pawn's color)
+                String toPosition = destination.pieceFile.toString() + destination.pieceRank;
+                if (board.containsKey(toPosition)) {
+                    // Destination must be occupied to consider capture
+                    ReturnPiece targetPiece = board.get(toPosition);
+                    // The target piece must be of the opposite color
+                    if (targetPiece != null && (start.pieceType.ordinal() / 6 != targetPiece.pieceType.ordinal() / 6)) {
+                        return true;
+                    }
+                }
+                return false; // Diagonal move without capture is invalid
             }
         }
+
 
         //if everything fails
         return false;
