@@ -165,6 +165,10 @@ public class Pawn extends Piece {
 
         }
 
+        if (board.get(to).pieceRank == 8 || board.get(to).pieceRank == 1) {
+            Chess.pawnPromotion = true;
+        }
+
         
         return true;
 
