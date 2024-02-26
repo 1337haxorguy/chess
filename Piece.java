@@ -64,7 +64,7 @@ public abstract class Piece {
     }
 
 
-    public void undoMoveIfCheck(String from, String to, ReturnPiece movedPiece, ReturnPiece removedPiece) {
+    public void undoMove(String from, String to, ReturnPiece movedPiece, ReturnPiece removedPiece) {
         // Undo the move
         board.remove(to);
         board.put(from, movedPiece);
@@ -77,6 +77,16 @@ public abstract class Piece {
             Chess.pieces.add(removedPiece);
         }
     }
+
+    public void undoMove(String from, String to, ReturnPiece movedPiece) {
+        // Undo the move
+        board.remove(to);
+        board.put(from, movedPiece);
+        movedPiece.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));
+        movedPiece.pieceFile = Chess.charToPieceFile(from.charAt(0));
+        
+    }
+
 
 
     public void pawnPromotion(String promotionType, ReturnPiece pawn){
@@ -100,5 +110,5 @@ public abstract class Piece {
 
         }
     }
-    
 }
+

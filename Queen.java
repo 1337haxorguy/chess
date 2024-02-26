@@ -20,7 +20,6 @@ public class Queen extends Piece {
 
         if (board.containsKey(to) && start.pieceType.ordinal() / 6 == board.get(to).pieceType.ordinal() / 6) { 
             //divide by six for the two different colors
-            System.out.println("bruh");
 
             return false; // Piece in the end position is of the same color
         }

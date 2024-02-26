@@ -36,7 +36,10 @@ public class Bishop extends Piece {
         if (start.pieceFile.ordinal() < destination.pieceFile.ordinal() && start.pieceRank < destination.pieceRank) { //moving in first quadrant
 
             while (tempStartRank < destination.pieceRank && tempStartFile < destination.pieceFile.ordinal() + 1) {
+                System.out.println(Chess.getPiecePosition(tempStartFile, tempStartRank) + " ");
+
                 if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
+                    System.out.println(Chess.getPiecePosition(tempStartFile, tempStartRank) + " returning false");
                     return false;
                 }
                 tempStartFile++;
