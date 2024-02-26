@@ -6,6 +6,7 @@ import java.util.Map;
 
 import chess.ReturnPiece.PieceFile;
 import chess.ReturnPiece.PieceType;
+import chess.ReturnPlay.Message;
 
 class ReturnPiece {
 	static enum PieceType {
@@ -55,6 +56,9 @@ public class Chess {
 	}
 
 	// this hashmap will store the specified piece and location
+
+	public static boolean turn = true; //WHITE TURN IS TRUE BLACK TURN IS FALSE
+
 	static Map<String, ReturnPiece> board = new HashMap<>();
 
 	public static boolean hasWhiteKingMoved = false;
@@ -84,8 +88,8 @@ public class Chess {
 		} else if (currentPiece.pieceType == PieceType.WB || currentPiece.pieceType == PieceType.BB) {
 			return new Bishop();
 
-	//	} else if (currentPiece.pieceType == PieceType.WN || currentPiece.pieceType == PieceType.BN) {
-	//		return new Knight();
+		 } else if (currentPiece.pieceType == PieceType.WN || currentPiece.pieceType == PieceType.BN) {
+		 	return new Knight();
 
 		} else if (currentPiece.pieceType == PieceType.WQ || currentPiece.pieceType == PieceType.BQ) {
 			return new Queen();
@@ -97,6 +101,26 @@ public class Chess {
 			return new Pawn();
 		}
 	}
+
+	public static boolean checkPieceColor(ReturnPiece currentPiece) {
+		if (currentPiece.pieceType == PieceType.WP || currentPiece.pieceType == PieceType.WR || currentPiece.pieceType == PieceType.WN || 
+		currentPiece.pieceType == PieceType.WB || currentPiece.pieceType == PieceType.WQ || currentPiece.pieceType == PieceType.WK) {
+			return true;
+		} else if (currentPiece.pieceType == PieceType.BP || currentPiece.pieceType == PieceType.BR || currentPiece.pieceType == PieceType.BN || 
+		currentPiece.pieceType == PieceType.BB || currentPiece.pieceType == PieceType.BQ || currentPiece.pieceType == PieceType.BK) {
+			return false;
+		}
+
+		return false;
+	}
+
+	public static boolean checkAllValidMovesIfCheckMate(ReturnPiece currentPiece) {
+
+		boolean color = checkPieceColor(currentPiece); //true for white, false for black
+
+
+	}
+
 
 
 	public static boolean isOwnKingInCheck(ReturnPiece returnPiece) {
@@ -168,11 +192,75 @@ public class Chess {
 	 */
 	public static ReturnPlay play(String move) {
 
+		// ILLEGAL_MOVE, DRAW,
+		// RESIGN_BLACK_WINS, RESIGN_WHITE_WINS,
+		// CHECK, CHECKMATE_BLACK_WINS, CHECKMATE_WHITE_WINS,
+		// STALEMATE
+
+		ReturnPlay returnPlay = new ReturnPlay();
+		returnPlay.piecesOnBoard = pieces;
+
+		String from = "";
+		String to = "";	
+
 		/* FILL IN THIS METHOD */
+
+		String[] parts = move.split(" ");
+        
+        // Extract the separate strings
+		if (parts.length < 2) {
+			returnPlay.message = Message.ILLEGAL_MOVE;
+			return returnPlay;
+		} else if (parts.length < 3) {
+			from = parts[0];
+			to = parts[1];	
+		} else if (parts.length < 4) {
+			//IMPLEMENT DRAW / RESIGN
+		}
+		
+		Piece currentPiece = new Pawn();
+
+		if (board.containsKey(from)) {
+
+			if (checkPieceColor(board.get(from)) == turn) {
+				System.out.println(turn);
+
+				currentPiece = checkPieceType(board.get(from));
+				if (currentPiece.move(from, to)) {
+
+
+					if (turn) {
+						turn = false;
+					} else {
+						turn = true;
+					}
+
+					if (isOwnKingInCheck(board.get(to))) {
+						returnPlay.message = Message.CHECK;
+					}
+				} else {
+					returnPlay.message = Message.ILLEGAL_MOVE;
+				}
+	
+			} else {
+				returnPlay.message = Message.ILLEGAL_MOVE;
+			}
+
+
+		} else {
+			returnPlay.message = Message.ILLEGAL_MOVE;
+		}
+
+		return returnPlay;
+
+
+
+
 
 		/* FOLLOWING LINE IS A PLACEHOLDER TO MAKE COMPILER HAPPY */
 		/* WHEN YOU FILL IN THIS METHOD, YOU NEED TO RETURN A ReturnPlay OBJECT */
-		return null;
+		//return null;
+		//SHOULD I COMMENT OUT THIS LINE
 	}
 
 	/**
@@ -182,14 +270,15 @@ public class Chess {
 
 		pieces.clear();
 		board.clear();
-		 hasWhiteKingMoved = false;
-		 hasBlackKingMoved = false;
-		 hasWhiteRookKingSideMoved = false;
-		 hasWhiteRookQueenSideMoved = false;
-		 hasBlackRookKingSideMoved = false;
-		 hasBlackRookQueenSideMoved = false;
-	
+		hasWhiteKingMoved = false;
+		hasBlackKingMoved = false;
+		hasWhiteRookKingSideMoved = false;
+		hasWhiteRookQueenSideMoved = false;
+		hasBlackRookKingSideMoved = false;
+		hasBlackRookQueenSideMoved = false;
 
+		turn = true;
+	
 		//KINGS
 
 		ReturnPiece whiteKing = new ReturnPiece();
@@ -355,28 +444,28 @@ public class Chess {
 		//KNIGHTS
 
 		ReturnPiece whiteKnight1 = new ReturnPiece();
-		whiteKnight1.pieceRank = 3;
+		whiteKnight1.pieceRank = 1;
 		whiteKnight1.pieceFile = PieceFile.b;
 		whiteKnight1.pieceType = PieceType.WN;
 		pieces.add(whiteKnight1);
 		board.put(getPiecePosition(whiteKnight1.pieceFile,whiteKnight1.pieceRank), whiteKnight1);
 
 		ReturnPiece whiteKnight2 = new ReturnPiece();
-		whiteKnight2.pieceRank = 3;
+		whiteKnight2.pieceRank = 1;
 		whiteKnight2.pieceFile = PieceFile.g;
 		whiteKnight2.pieceType = PieceType.WN;
 		pieces.add(whiteKnight2);
 		board.put(getPiecePosition(whiteKnight2.pieceFile,whiteKnight2.pieceRank), whiteKnight2);
 
 		ReturnPiece blackKnight1 = new ReturnPiece();
-		blackKnight1.pieceRank = 6;
+		blackKnight1.pieceRank = 8;
 		blackKnight1.pieceFile = PieceFile.b;
 		blackKnight1.pieceType = PieceType.BN;
 		pieces.add(blackKnight1);
 		board.put(getPiecePosition(blackKnight1.pieceFile,blackKnight1.pieceRank), blackKnight1);
 
 		ReturnPiece blackKnight2 = new ReturnPiece();
-		blackKnight2.pieceRank = 6;
+		blackKnight2.pieceRank = 8;
 		blackKnight2.pieceFile = PieceFile.g;
 		blackKnight2.pieceType = PieceType.BN;
 		pieces.add(blackKnight2);
@@ -385,28 +474,28 @@ public class Chess {
 		//BISHOPS
 
 		ReturnPiece whiteBishop1 = new ReturnPiece();
-		whiteBishop1.pieceRank = 3;
+		whiteBishop1.pieceRank = 1;
 		whiteBishop1.pieceFile = PieceFile.c;
 		whiteBishop1.pieceType = PieceType.WB;
 		pieces.add(whiteBishop1);
 		board.put(getPiecePosition(whiteBishop1.pieceFile,whiteBishop1.pieceRank), whiteBishop1);
 
 		ReturnPiece whiteBishop2 = new ReturnPiece();
-		whiteBishop2.pieceRank = 3;
+		whiteBishop2.pieceRank = 1;
 		whiteBishop2.pieceFile = PieceFile.f;
 		whiteBishop2.pieceType = PieceType.WB;
 		pieces.add(whiteBishop2);
 		board.put(getPiecePosition(whiteBishop2.pieceFile,whiteBishop2.pieceRank), whiteBishop2);
 
 		ReturnPiece blackBishop1 = new ReturnPiece();
-		blackBishop1.pieceRank = 3;
+		blackBishop1.pieceRank = 8;
 		blackBishop1.pieceFile = PieceFile.c;
 		blackBishop1.pieceType = PieceType.BB;
 		pieces.add(blackBishop1);
 		board.put(getPiecePosition(blackBishop1.pieceFile,blackBishop1.pieceRank), blackBishop1);
 
 		ReturnPiece blackBishop2 = new ReturnPiece();
-		blackBishop2.pieceRank = 3;
+		blackBishop2.pieceRank = 8;
 		blackBishop2.pieceFile = PieceFile.f;
 		blackBishop2.pieceType = PieceType.BB;
 		pieces.add(blackBishop2);
@@ -415,29 +504,22 @@ public class Chess {
 		//QUEENS
 
 		ReturnPiece whiteQueen = new ReturnPiece();
-		whiteQueen.pieceRank = 3;
+		whiteQueen.pieceRank = 1;
 		whiteQueen.pieceFile = PieceFile.d;
 		whiteQueen.pieceType = PieceType.WQ;
 		pieces.add(whiteQueen);
 		board.put(getPiecePosition(whiteQueen.pieceFile,whiteQueen.pieceRank), whiteQueen);
 
 		ReturnPiece blackQueen = new ReturnPiece();
-		blackQueen.pieceRank = 6;
+		blackQueen.pieceRank = 8;
 		blackQueen.pieceFile = PieceFile.d;
 		blackQueen.pieceType = PieceType.BQ;
 		pieces.add(blackQueen);
 		board.put(getPiecePosition(blackQueen.pieceFile,blackQueen.pieceRank), blackQueen);
 
-		Piece currentPiece = new Pawn();
-		currentPiece = new King();
+		Piece currPiece = new Pawn();
 
-		currentPiece.move("e8", "c8");
-
-
-		currentPiece.move("c8", "b8");
-
-		
-
+		currPiece.move("e7", "e6");
 		PlayChess.printBoard(pieces);
 
 		/* FILL IN THIS METHOD */
