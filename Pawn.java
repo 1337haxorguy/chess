@@ -170,4 +170,64 @@ public class Pawn extends Piece {
 
 
     }
+
+    public boolean move(String from, String to, String promotionType) {
+
+
+        if (!board.containsKey(from)) {
+            System.out.println("cannot find start piece");
+            return false;
+        }
+
+        if (!this.validMove(from, to)) {
+            System.out.println("this is invalid!");
+            return false;
+        } 
+
+        boolean pieceRemoved = false;
+        ReturnPiece removedPiece = new ReturnPiece();
+
+        if (board.containsKey(to)) {
+            Chess.pieces.remove(board.get(to));
+            removedPiece = board.remove(to);
+            pieceRemoved = true;
+        }
+
+        ReturnPiece wow = board.remove(from);
+        board.put(to, wow);
+        wow.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
+        wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
+
+
+        if (Chess.isOwnKingInCheck(wow)) {
+            System.out.println("invalid move because your king is in check");
+            board.remove(to);
+            board.put(from, wow);
+            wow.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));
+            wow.pieceFile = Chess.charToPieceFile(from.charAt(0));
+    
+
+            if (pieceRemoved) {
+                board.put(to, removedPiece);
+                Chess.pieces.add(board.get(to));
+
+            }
+
+            return false;
+
+        }
+
+        pawnPromotion(promotionType, board.get(to));
+        return true;
+        // if (!hypotheticalMove(from, to)){
+        //     return;
+        // }
+
+        // Chess.pieces.remove(board.get(from));
+        // ReturnPiece pawn= board.remove(from);
+        // Chess.pieces.add(pawn);
+        // board.put(from, pawn);
+
+        // move(from,to);
+    }
 }
