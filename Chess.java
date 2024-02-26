@@ -525,8 +525,16 @@ public class Chess {
 		//reset implementation
 		//should clear board and pieces
 		if (move.equals("reset")){
-			attemptedDraw = false;
-			turn = true;
+			 hasWhiteKingMoved = false;
+			 hasBlackKingMoved = false;
+			 hasWhiteRookKingSideMoved = false;
+			 hasWhiteRookQueenSideMoved = false;
+			 hasBlackRookKingSideMoved = false;
+			 hasBlackRookQueenSideMoved = false;
+			 pawnPromotion = false;
+			 wasLastMoveDouble = false;
+			 pieceThatMovedDoubleColor = true;
+			 lastDouble = new ReturnPiece();		
 			board.clear();
 			pieces.clear();
 			start();
@@ -914,7 +922,6 @@ public class Chess {
 		// board.put(getPiecePosition(blackQueen.pieceFile, blackQueen.pieceRank),
 		// blackQueen);
 
-		PlayChess.printBoard(pieces);
 		/* FILL IN THIS METHOD */
 	}
 }
