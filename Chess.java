@@ -509,6 +509,7 @@ public class Chess {
 		// CHECK, CHECKMATE_BLACK_WINS, CHECKMATE_WHITE_WINS,
 		// STALEMATE
 
+		boolean attemptedDraw = false;
 		ReturnPlay returnPlay = new ReturnPlay();
 		returnPlay.piecesOnBoard = pieces;
 
@@ -519,16 +520,16 @@ public class Chess {
 
 		//reset implementation
 		//should clear board and pieces
-		String reset= "reset";
-		if (move.equals(reset)){
+		if (move.equals("reset")){
+			attemptedDraw = false;
+			turn = true;
 			board.clear();
 			pieces.clear();
 			start();
+
 		}
 
 		String[] parts = move.split(" ");
-
-		
 
 		// Extract the separate strings
 		if (move.equals("resign")){
@@ -543,10 +544,16 @@ public class Chess {
 		if (parts.length < 2) {
 			returnPlay.message = Message.ILLEGAL_MOVE;
 			return returnPlay;
-		} else if (parts.length < 3) {
+		} else  {
 			from = parts[0];
 			to = parts[1];
 		} 
+
+		if (parts.length >= 3 && parts[2].equals("draw?")) {
+			attemptedDraw = true;
+		} else if (parts.length >= 4 && parts[3].equals("draw?")) {
+			attemptedDraw = true;
+		}
 
 		Piece currentPiece = new Pawn();
 
@@ -586,6 +593,12 @@ public class Chess {
 		} else {
 			returnPlay.message = Message.ILLEGAL_MOVE;
 		}
+
+		if (returnPlay.message != Message.ILLEGAL_MOVE && returnPlay.message != Message.CHECKMATE_BLACK_WINS &&
+		 returnPlay.message != Message.CHECKMATE_WHITE_WINS && returnPlay.message != Message.RESIGN_BLACK_WINS && 
+		 returnPlay.message != Message.RESIGN_WHITE_WINS && attemptedDraw) {
+			returnPlay.message = Message.DRAW;
+		 }
 
 		return returnPlay;
 
