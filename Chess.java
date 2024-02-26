@@ -578,7 +578,7 @@ public class Chess {
 		board.put(getPiecePosition(WhitePawn4.pieceFile, WhitePawn4.pieceRank), WhitePawn4);
 
 		ReturnPiece WhitePawn5 = new ReturnPiece();
-		WhitePawn5.pieceRank = 2;
+		WhitePawn5.pieceRank = 3;
 		WhitePawn5.pieceFile = PieceFile.e;
 		WhitePawn5.pieceType = PieceType.WP;
 		pieces.add(WhitePawn5);
@@ -733,8 +733,8 @@ public class Chess {
 		board.put(getPiecePosition(whiteBishop1.pieceFile, whiteBishop1.pieceRank), whiteBishop1);
 
 		ReturnPiece whiteBishop2 = new ReturnPiece();
-		whiteBishop2.pieceRank = 3;
-		whiteBishop2.pieceFile = PieceFile.d;
+		whiteBishop2.pieceRank = 1;
+		whiteBishop2.pieceFile = PieceFile.f;
 		whiteBishop2.pieceType = PieceType.WB;
 		pieces.add(whiteBishop2);
 		board.put(getPiecePosition(whiteBishop2.pieceFile, whiteBishop2.pieceRank), whiteBishop2);
