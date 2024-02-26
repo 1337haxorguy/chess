@@ -8,9 +8,9 @@ public class Pawn extends Piece {
 
         //Checks if no pawn in from location is there
         if (!board.containsKey((from))){
-
             return false;
         }
+        
         //grabbing current location
         ReturnPiece start = board.get(from);
 

@@ -640,13 +640,13 @@ public class Chess {
 		// board.put(getPiecePosition(WhitePawn6.pieceFile, WhitePawn6.pieceRank),
 		// WhitePawn6);
 
-		// ReturnPiece WhitePawn7 = new ReturnPiece();
-		// WhitePawn7.pieceRank = 2;
-		// WhitePawn7.pieceFile = PieceFile.g;
-		// WhitePawn7.pieceType = PieceType.WP;
-		// pieces.add(WhitePawn7);
-		// board.put(getPiecePosition(WhitePawn7.pieceFile, WhitePawn7.pieceRank),
-		// WhitePawn7);
+		ReturnPiece WhitePawn7 = new ReturnPiece();
+		WhitePawn7.pieceRank = 2;
+		WhitePawn7.pieceFile = PieceFile.g;
+		WhitePawn7.pieceType = PieceType.WP;
+		pieces.add(WhitePawn7);
+		board.put(getPiecePosition(WhitePawn7.pieceFile, WhitePawn7.pieceRank),
+		WhitePawn7);
 
 		// ReturnPiece WhitePawn8 = new ReturnPiece();
 		// WhitePawn8.pieceRank = 2;
