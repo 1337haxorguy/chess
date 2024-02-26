@@ -69,6 +69,7 @@ public class Chess {
 	public static boolean hasBlackRookQueenSideMoved = false;
 	public static boolean pawnPromotion = false;
 	public static boolean wasLastMoveDouble = false;
+	public static boolean pieceThatMovedDoubleColor = true;
 	public static ReturnPiece lastDouble = new ReturnPiece();
 
 	// this will organize the pieceFile and rank into one string
@@ -582,6 +583,11 @@ public class Chess {
 						}
 					}
 
+					if (turn != pieceThatMovedDoubleColor) {
+						wasLastMoveDouble = false;
+						lastDouble = new ReturnPiece();
+					}
+
 					if (turn) {
 						turn = false;
 					} else {
@@ -662,16 +668,16 @@ public class Chess {
 
 		// WHITE PAWNS
 
-		ReturnPiece WhitePawn1 = new ReturnPiece();
-		WhitePawn1.pieceRank = 7;
-		WhitePawn1.pieceFile = PieceFile.a;
-		WhitePawn1.pieceType = PieceType.WP;
-		pieces.add(WhitePawn1);
-		board.put(getPiecePosition(WhitePawn1.pieceFile, WhitePawn1.pieceRank),
-		WhitePawn1);
+		// ReturnPiece WhitePawn1 = new ReturnPiece();
+		// WhitePawn1.pieceRank = 2;
+		// WhitePawn1.pieceFile = PieceFile.a;
+		// WhitePawn1.pieceType = PieceType.WP;
+		// pieces.add(WhitePawn1);
+		// board.put(getPiecePosition(WhitePawn1.pieceFile, WhitePawn1.pieceRank),
+		// WhitePawn1);
 
 		ReturnPiece WhitePawn2 = new ReturnPiece();
-		WhitePawn2.pieceRank = 2;
+		WhitePawn2.pieceRank = 5;
 		WhitePawn2.pieceFile = PieceFile.b;
 		WhitePawn2.pieceType = PieceType.WP;
 		pieces.add(WhitePawn2);
@@ -728,13 +734,13 @@ public class Chess {
 
 		// // // BLACK PAWNS
 
-		// ReturnPiece BlackPawn1 = new ReturnPiece();
-		// BlackPawn1.pieceRank = 7;
-		// BlackPawn1.pieceFile = PieceFile.a;
-		// BlackPawn1.pieceType = PieceType.BP;
-		// pieces.add(BlackPawn1);
-		// board.put(getPiecePosition(BlackPawn1.pieceFile, BlackPawn1.pieceRank),
-		// BlackPawn1);
+		ReturnPiece BlackPawn1 = new ReturnPiece();
+		BlackPawn1.pieceRank = 7;
+		BlackPawn1.pieceFile = PieceFile.a;
+		BlackPawn1.pieceType = PieceType.BP;
+		pieces.add(BlackPawn1);
+		board.put(getPiecePosition(BlackPawn1.pieceFile, BlackPawn1.pieceRank),
+		BlackPawn1);
 
 		// ReturnPiece BlackPawn2 = new ReturnPiece();
 		// BlackPawn2.pieceRank = 7;
@@ -744,13 +750,13 @@ public class Chess {
 		// board.put(getPiecePosition(BlackPawn2.pieceFile, BlackPawn2.pieceRank),
 		// BlackPawn2);
 
-		// ReturnPiece BlackPawn3 = new ReturnPiece();
-		// BlackPawn3.pieceRank = 7;
-		// BlackPawn3.pieceFile = PieceFile.c;
-		// BlackPawn3.pieceType = PieceType.BP;
-		// pieces.add(BlackPawn3);
-		// board.put(getPiecePosition(BlackPawn3.pieceFile, BlackPawn3.pieceRank),
-		// BlackPawn3);
+		ReturnPiece BlackPawn3 = new ReturnPiece();
+		BlackPawn3.pieceRank = 7;
+		BlackPawn3.pieceFile = PieceFile.c;
+		BlackPawn3.pieceType = PieceType.BP;
+		pieces.add(BlackPawn3);
+		board.put(getPiecePosition(BlackPawn3.pieceFile, BlackPawn3.pieceRank),
+		BlackPawn3);
 
 		// ReturnPiece BlackPawn4 = new ReturnPiece();
 		// BlackPawn4.pieceRank = 7;

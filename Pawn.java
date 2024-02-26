@@ -2,6 +2,8 @@ package chess;
 
 public class Pawn extends Piece {
 
+    boolean enPassant = false;
+
     public boolean validMove(String from, String to) {
 
         // Checks if no pawn in from location is there
@@ -83,7 +85,6 @@ public class Pawn extends Piece {
                         return true;
                     }
                 }
-                return false; // Diagonal move without capture is invalid
             }
         }
 
@@ -91,13 +92,34 @@ public class Pawn extends Piece {
 
         if (from.charAt(1) == '5' && Chess.checkPieceColor(board.get(from)) == true && Chess.wasLastMoveDouble) { //white en passant
 
-            if (Chess.lastDouble.pieceFile.ordinal() == ) {
-                
+            if (Chess.lastDouble.pieceFile.ordinal() == board.get(from).pieceFile.ordinal() + 1 ||
+            Chess.lastDouble.pieceFile.ordinal() == board.get(from).pieceFile.ordinal() - 1) {
+                char digitChar = to.charAt(1);
+                int digit = digitChar - '0';
+
+                if (board.get(Chess.getPiecePosition(Chess.charToPieceFile(to.charAt(0)), digit-1)) == Chess.lastDouble) {
+                    board.remove(Chess.getPiecePosition(Chess.charToPieceFile(to.charAt(0)), digit-1));
+                    Chess.pieces.remove(Chess.lastDouble);
+                    enPassant = true;
+                    return true;
+                }
+
             }
-
-
-
         } else if (from.charAt(1) == '4' && Chess.checkPieceColor(board.get(from)) == false) { //black en passant
+
+            if (Chess.lastDouble.pieceFile.ordinal() == board.get(from).pieceFile.ordinal() + 1 ||
+            Chess.lastDouble.pieceFile.ordinal() == board.get(from).pieceFile.ordinal() - 1) {
+                char digitChar = to.charAt(1);
+                int digit = digitChar - '0';
+
+                if (board.get(Chess.getPiecePosition(Chess.charToPieceFile(to.charAt(0)), digit+1)) == Chess.lastDouble) {
+                    board.remove(Chess.getPiecePosition(Chess.charToPieceFile(to.charAt(0)), digit+1));
+                    Chess.pieces.remove(Chess.lastDouble);
+                    enPassant = true;
+                    return true;
+                }
+
+            }
 
         }
 
@@ -181,6 +203,7 @@ public class Pawn extends Piece {
         if (Math.abs(from.charAt(1) - to.charAt(1)) == 2) {
             Chess.wasLastMoveDouble = true;
             Chess.lastDouble = board.get(to);
+            Chess.pieceThatMovedDoubleColor = Chess.checkPieceColor(board.get(to));
         }
 
         return true;
