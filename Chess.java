@@ -68,6 +68,8 @@ public class Chess {
 	public static boolean hasBlackRookKingSideMoved = false;
 	public static boolean hasBlackRookQueenSideMoved = false;
 	public static boolean pawnPromotion = false;
+	public static boolean wasLastMoveDouble = false;
+	public static ReturnPiece lastDouble = new ReturnPiece();
 
 	// this will organize the pieceFile and rank into one string
 	static String getPiecePosition(PieceFile letter, int rank) {
@@ -668,13 +670,13 @@ public class Chess {
 		board.put(getPiecePosition(WhitePawn1.pieceFile, WhitePawn1.pieceRank),
 		WhitePawn1);
 
-		// ReturnPiece WhitePawn2 = new ReturnPiece();
-		// WhitePawn2.pieceRank = 2;
-		// WhitePawn2.pieceFile = PieceFile.b;
-		// WhitePawn2.pieceType = PieceType.WP;
-		// pieces.add(WhitePawn2);
-		// board.put(getPiecePosition(WhitePawn2.pieceFile, WhitePawn2.pieceRank),
-		// WhitePawn2);
+		ReturnPiece WhitePawn2 = new ReturnPiece();
+		WhitePawn2.pieceRank = 2;
+		WhitePawn2.pieceFile = PieceFile.b;
+		WhitePawn2.pieceType = PieceType.WP;
+		pieces.add(WhitePawn2);
+		board.put(getPiecePosition(WhitePawn2.pieceFile, WhitePawn2.pieceRank),
+		WhitePawn2);
 
 		// ReturnPiece WhitePawn3 = new ReturnPiece();
 		// WhitePawn3.pieceRank = 2;
