@@ -596,15 +596,15 @@ public class Chess {
 		// KINGS
 
 		ReturnPiece whiteKing = new ReturnPiece();
-		whiteKing.pieceRank = 2;
-		whiteKing.pieceFile = PieceFile.f;
+		whiteKing.pieceRank = 1;
+		whiteKing.pieceFile = PieceFile.g;
 		whiteKing.pieceType = PieceType.WK;
 		pieces.add(whiteKing);
 		board.put(getPiecePosition(whiteKing.pieceFile, whiteKing.pieceRank), whiteKing);
 
 		ReturnPiece blackKing = new ReturnPiece();
 		blackKing.pieceRank = 8;
-		blackKing.pieceFile = PieceFile.h;
+		blackKing.pieceFile = PieceFile.e;
 		blackKing.pieceType = PieceType.BK;
 		pieces.add(blackKing);
 		board.put(getPiecePosition(blackKing.pieceFile, blackKing.pieceRank), blackKing);
@@ -661,7 +661,7 @@ public class Chess {
 
 		// ReturnPiece WhitePawn7 = new ReturnPiece();
 		// WhitePawn7.pieceRank = 7;
-		// WhitePawn7.pieceFile = PieceFile.g;
+		// WhitePawn7.pieceFile = PieceFile.d;
 		// WhitePawn7.pieceType = PieceType.WP;
 		// pieces.add(WhitePawn7);
 		// board.put(getPiecePosition(WhitePawn7.pieceFile, WhitePawn7.pieceRank),
@@ -685,13 +685,13 @@ public class Chess {
 		// board.put(getPiecePosition(BlackPawn1.pieceFile, BlackPawn1.pieceRank),
 		// BlackPawn1);
 
-		// ReturnPiece BlackPawn2 = new ReturnPiece();
-		// BlackPawn2.pieceRank = 7;
-		// BlackPawn2.pieceFile = PieceFile.b;
-		// BlackPawn2.pieceType = PieceType.BP;
-		// pieces.add(BlackPawn2);
-		// board.put(getPiecePosition(BlackPawn2.pieceFile, BlackPawn2.pieceRank),
-		// BlackPawn2);
+		ReturnPiece BlackPawn2 = new ReturnPiece();
+		BlackPawn2.pieceRank = 7;
+		BlackPawn2.pieceFile = PieceFile.b;
+		BlackPawn2.pieceType = PieceType.BP;
+		pieces.add(BlackPawn2);
+		board.put(getPiecePosition(BlackPawn2.pieceFile, BlackPawn2.pieceRank),
+		BlackPawn2);
 
 		// ReturnPiece BlackPawn3 = new ReturnPiece();
 		// BlackPawn3.pieceRank = 7;
@@ -743,12 +743,12 @@ public class Chess {
 
 		// // ROOKS
 
-		ReturnPiece whiteRook1 = new ReturnPiece();
-		whiteRook1.pieceRank = 2;
-		whiteRook1.pieceFile = PieceFile.h;
-		whiteRook1.pieceType = PieceType.WR;
-		pieces.add(whiteRook1);
-		board.put(getPiecePosition(whiteRook1.pieceFile, whiteRook1.pieceRank), whiteRook1);
+		// ReturnPiece whiteRook1 = new ReturnPiece();
+		// whiteRook1.pieceRank = 1;
+		// whiteRook1.pieceFile = PieceFile.a;
+		// whiteRook1.pieceType = PieceType.WR;
+		// pieces.add(whiteRook1);
+		// board.put(getPiecePosition(whiteRook1.pieceFile, whiteRook1.pieceRank), whiteRook1);
 
 		// ReturnPiece whiteRook2 = new ReturnPiece();
 		// whiteRook2.pieceRank = 1;
@@ -775,8 +775,8 @@ public class Chess {
 		// // KNIGHTS
 
 		// ReturnPiece whiteKnight1 = new ReturnPiece();
-		// whiteKnight1.pieceRank = 7;
-		// whiteKnight1.pieceFile = PieceFile.e;
+		// whiteKnight1.pieceRank = 6;
+		// whiteKnight1.pieceFile = PieceFile.f;
 		// whiteKnight1.pieceType = PieceType.WN;
 		// pieces.add(whiteKnight1);
 		// board.put(getPiecePosition(whiteKnight1.pieceFile, whiteKnight1.pieceRank),
@@ -808,13 +808,13 @@ public class Chess {
 
 		// // // BISHOPS
 
-		// ReturnPiece whiteBishop1 = new ReturnPiece();
-		// whiteBishop1.pieceRank = 1;
-		// whiteBishop1.pieceFile = PieceFile.c;
-		// whiteBishop1.pieceType = PieceType.WB;
-		// pieces.add(whiteBishop1);
-		// board.put(getPiecePosition(whiteBishop1.pieceFile, whiteBishop1.pieceRank),
-		// whiteBishop1);
+		ReturnPiece whiteBishop1 = new ReturnPiece();
+		whiteBishop1.pieceRank = 3;
+		whiteBishop1.pieceFile = PieceFile.f;
+		whiteBishop1.pieceType = PieceType.WB;
+		pieces.add(whiteBishop1);
+		board.put(getPiecePosition(whiteBishop1.pieceFile, whiteBishop1.pieceRank),
+		whiteBishop1);
 
 		// ReturnPiece whiteBishop2 = new ReturnPiece();
 		// whiteBishop2.pieceRank = 1;
@@ -842,16 +842,16 @@ public class Chess {
 
 		// // // QUEENS
 
-		// ReturnPiece whiteQueen = new ReturnPiece();
-		// whiteQueen.pieceRank = 1;
-		// whiteQueen.pieceFile = PieceFile.d;
-		// whiteQueen.pieceType = PieceType.WQ;
-		// pieces.add(whiteQueen);
-		// board.put(getPiecePosition(whiteQueen.pieceFile, whiteQueen.pieceRank), whiteQueen);
+		ReturnPiece whiteQueen = new ReturnPiece();
+		whiteQueen.pieceRank = 6;
+		whiteQueen.pieceFile = PieceFile.f;
+		whiteQueen.pieceType = PieceType.WQ;
+		pieces.add(whiteQueen);
+		board.put(getPiecePosition(whiteQueen.pieceFile, whiteQueen.pieceRank), whiteQueen);
 
 		// ReturnPiece blackQueen = new ReturnPiece();
 		// blackQueen.pieceRank = 8;
-		// blackQueen.pieceFile = PieceFile.d;
+		// blackQueen.pieceFile = PieceFile.a;
 		// blackQueen.pieceType = PieceType.BQ;
 		// pieces.add(blackQueen);
 		// board.put(getPiecePosition(blackQueen.pieceFile, blackQueen.pieceRank),
