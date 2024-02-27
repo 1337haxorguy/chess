@@ -481,9 +481,9 @@ public class Chess {
 				return PieceFile.g;
 			case 'h':
 				return PieceFile.h;
-			default:
-				throw new IllegalArgumentException("Invalid character: " + c);
-		}
+			default:	
+				return null;
+		}	
 	}
 
 	/**
