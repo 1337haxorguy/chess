@@ -104,7 +104,7 @@ public class Pawn extends Piece {
                 }
 
             }
-        } else if (from.charAt(1) == '4' && Chess.checkPieceColor(board.get(from)) == false) { //black en passant
+        } else if (from.charAt(1) == '4' && Chess.checkPieceColor(board.get(from)) == false && Chess.wasLastMoveDouble) { //black en passant
 
             if (Chess.lastDouble.pieceFile.ordinal() == board.get(from).pieceFile.ordinal() + 1 ||
             Chess.lastDouble.pieceFile.ordinal() == board.get(from).pieceFile.ordinal() - 1) {

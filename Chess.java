@@ -416,25 +416,36 @@ public class Chess {
 
 			currPiece = Chess.checkPieceType(setPiece);
 
-			if (setPiece != whiteKing && setPiece != blackKing) {
 
 				if (color) { // Piece is white
 
-					if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
-							getPiecePosition(whiteKing.pieceFile, whiteKing.pieceRank))) {
-						return true;
+					if (setPiece != whiteKing) {
+
+						if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
+						getPiecePosition(whiteKing.pieceFile, whiteKing.pieceRank))) {
+					return true;
+				}
+
 					}
+
+
 
 				} else { // piece is black
 
-					if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
-							getPiecePosition(blackKing.pieceFile, blackKing.pieceRank))) {
+					if (setPiece != blackKing) {
 
-						return true;
+						if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
+						getPiecePosition(blackKing.pieceFile, blackKing.pieceRank))) {
+
+					return true;
+				}
+
+
 					}
+
 				}
 			}
-		}
+		
 		return false;
 	}
 
