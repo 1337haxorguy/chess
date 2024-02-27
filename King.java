@@ -26,6 +26,7 @@ public class King extends Piece {
 
             return false; // Piece in the end position is of the same color
         } else if (!Chess.hasWhiteKingMoved && from.equals("e1")) { //White castling
+            System.out.println(Chess.hasWhiteKingMoved);
             if (board.get(from).pieceType == PieceType.WK) {
 
                 if (to.equals("g1")) {

@@ -546,6 +546,9 @@ public class Chess {
 		move = move.trim();
 		String[] parts = move.split(" ");
 
+		ReturnPiece whiteKing = pieces.get(0);
+		ReturnPiece blackKing = pieces.get(1);
+
 
 		// Extract the separate strings
 		if (move.equals("resign")){
@@ -580,6 +583,14 @@ public class Chess {
 
 				currentPiece = checkPieceType(board.get(from));
 				if (currentPiece.move(from, to)) {
+					
+					if (board.get(to).equals(whiteKing)  ) {
+						hasWhiteKingMoved = true;
+					}
+
+					if (board.get(to).equals(blackKing)) {
+						hasBlackKingMoved = true;
+					}
 					if (pawnPromotion) {
 						currentPiece = new Pawn();
 						pawnPromotion = false;
