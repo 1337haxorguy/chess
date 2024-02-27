@@ -119,7 +119,6 @@ public class King extends Piece {
         }
 
         if (!validMove(from, to)) {
-            System.out.println("move is invalid");
             return false;
         } 
 
@@ -138,7 +137,6 @@ public class King extends Piece {
         wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
 
         if (Chess.isOwnKingInCheck(wow)) {
-            System.out.println("own king is put into check");
             board.remove(to);
             board.put(from, wow);
             wow.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));

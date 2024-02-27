@@ -35,16 +35,12 @@ public class Queen extends Piece {
                     }
                 }
             } else { // Moving horizontally
-                System.out.println("MOVING HORIZONTALLY");
-                System.out.println(to);
-                System.out.println(destination.pieceFile.compareTo(start.pieceFile));
 
                 int destinationOrd = destination.pieceFile.ordinal();
                 int startOrd = start.pieceFile.ordinal();
 
                 int step = Integer.compare(destinationOrd, startOrd); // Use Integer.compare method
                 for (int file = start.pieceFile.ordinal() + step; file != destination.pieceFile.ordinal(); file += step) {
-                    System.out.println(Chess.getPiecePosition(PieceFile.values()[file], start.pieceRank));
                     if (board.containsKey(Chess.getPiecePosition(PieceFile.values()[file], start.pieceRank))) {
                         return false; // Path is blocked
                     }

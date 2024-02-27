@@ -50,12 +50,10 @@ public class Knight extends Piece {
 
 
         if (!board.containsKey(from)) {
-            System.out.println("cannot find start piece");
             return false;
         }
 
         if (!validMove(from, to)) {
-            System.out.println("this is invalid!");
             return false;
         } 
 
@@ -73,10 +71,8 @@ public class Knight extends Piece {
         wow.pieceRank = Integer.parseInt(String.valueOf(to.charAt(1)));
         wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
 
-        System.out.println(wow.pieceRank + "" + wow.pieceFile);
 
         if (Chess.isOwnKingInCheck(wow)) {
-            System.out.println("invalid move because your king is in check");
             board.remove(to);
             board.put(from, wow);
             wow.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));

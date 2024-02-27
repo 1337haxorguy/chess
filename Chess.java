@@ -240,13 +240,11 @@ public class Chess {
 		// can you block attacker????
 		if (attacker.pieceType == PieceType.BN || attacker.pieceType == PieceType.WN
 				|| attacker.pieceType == PieceType.WP || attacker.pieceType == PieceType.BP) {
-			System.out.println("attacker is knight or pawn");
 			cannotBeBlocked = true;
 		}
 
 		if (attacker.pieceType == PieceType.BR || attacker.pieceType == PieceType.WR
 				|| attacker.pieceType == PieceType.BQ || attacker.pieceType == PieceType.WQ) {
-					System.out.println("attacker: " + attacker.pieceRank + " defender: " + defendingKing.pieceRank);
 			if (attacker.pieceFile.ordinal() == defendingKing.pieceFile.ordinal()) {
 				if (attacker.pieceRank > defendingKing.pieceRank) {
 
@@ -257,9 +255,7 @@ public class Chess {
 					}
 
 				} else {
-					System.out.println("Attacker PieceRank is less than defending king piecerank");
 					for (int i = attacker.pieceRank + 1; i <= defendingKing.pieceRank; i++) {
-						System.out.println("Checking " + getPiecePosition(attacker.pieceFile, i) + " " + canPieceMoveToSpot(getPiecePosition(attacker.pieceFile, i), color));
 						if (canPieceMoveToSpot(getPiecePosition(attacker.pieceFile, i), color)) {
 							return false;
 						}
@@ -267,7 +263,6 @@ public class Chess {
 
 				}
 			} else if (attacker.pieceRank == defendingKing.pieceRank) {
-				System.out.println("horizontal check");
 				if (attacker.pieceFile.ordinal() > defendingKing.pieceFile.ordinal()) {
 
 					for (int i = attacker.pieceFile.ordinal() - 1; i >= defendingKing.pieceFile.ordinal(); i--) {
@@ -363,7 +358,6 @@ public class Chess {
 			}
 
 		}
-		System.out.println("cannot be blocked");
 		return cannotBeBlocked;
 	}
 
@@ -539,7 +533,6 @@ public class Chess {
 		}
 
 		move = move.trim();
-		System.out.println(move);
 		String[] parts = move.split(" ");
 
 

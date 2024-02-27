@@ -39,7 +39,6 @@ public class Pawn extends Piece {
         } else {
             direction = -1;
             if (destination.pieceRank > start.pieceRank) {
-                System.out.println("yes");
                 return false;
             }
         }
@@ -156,12 +155,10 @@ public class Pawn extends Piece {
     public boolean move(String from, String to) {
 
         if (!board.containsKey(from)) {
-            System.out.println("cannot find start piece");
             return false;
         }
 
         if (!this.validMove(from, to)) {
-            System.out.println("this is invalid!");
             return false;
         }
 
@@ -180,7 +177,6 @@ public class Pawn extends Piece {
         wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
 
         if (Chess.isOwnKingInCheck(wow)) {
-            System.out.println("invalid move because your king is in check");
             board.remove(to);
             board.put(from, wow);
             wow.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));
@@ -213,12 +209,10 @@ public class Pawn extends Piece {
     public boolean move(String from, String to, String promotionType) {
 
         if (!board.containsKey(from)) {
-            System.out.println("cannot find start piece");
             return false;
         }
 
         if (!this.validMove(from, to)) {
-            System.out.println("this is invalid!");
             return false;
         }
 
@@ -237,7 +231,6 @@ public class Pawn extends Piece {
         wow.pieceFile = Chess.charToPieceFile(to.charAt(0));
 
         if (Chess.isOwnKingInCheck(wow)) {
-            System.out.println("invalid move because your king is in check");
             board.remove(to);
             board.put(from, wow);
             wow.pieceRank = Integer.parseInt(String.valueOf(from.charAt(1)));
