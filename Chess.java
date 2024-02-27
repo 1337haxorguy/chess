@@ -420,7 +420,6 @@ public class Chess {
 				if (color) { // Piece is white
 
 					if (setPiece != whiteKing) {
-
 						if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
 						getPiecePosition(whiteKing.pieceFile, whiteKing.pieceRank))) {
 					return true;
@@ -436,6 +435,7 @@ public class Chess {
 
 						if (currPiece.validMove(getPiecePosition(setPiece.pieceFile, setPiece.pieceRank),
 						getPiecePosition(blackKing.pieceFile, blackKing.pieceRank))) {
+
 
 					return true;
 				}

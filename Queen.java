@@ -48,8 +48,7 @@ public class Queen extends Piece {
             }
                         return true; // Valid move
         } else {
-
-
+    
             int fileDiff = Math.abs(start.pieceFile.ordinal() - destination.pieceFile.ordinal());
             int rankDiff = Math.abs(start.pieceRank - destination.pieceRank);
             if (fileDiff != rankDiff) {
@@ -61,12 +60,12 @@ public class Queen extends Piece {
             if (start.pieceFile.ordinal() < destination.pieceFile.ordinal() && start.pieceRank < destination.pieceRank) { //moving in first quadrant
                 tempStartFile++;
                 tempStartRank++;    
-
-
-
-                while (tempStartRank < destination.pieceRank && tempStartFile < destination.pieceFile.ordinal() + 1) {
+    
+    
+    
+                while (tempStartRank < destination.pieceRank && tempStartFile < destination.pieceFile.ordinal() ) {
                     if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
-
+    
                         return false;
                     }
                     tempStartFile++;
@@ -77,7 +76,7 @@ public class Queen extends Piece {
                 tempStartFile--;
                 tempStartRank++;
 
-                while (tempStartRank < destination.pieceRank && tempStartFile > destination.pieceFile.ordinal() + 1) {
+                while (tempStartRank < destination.pieceRank && tempStartFile > destination.pieceFile.ordinal()) {
                     if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
                         return false;
                     }
@@ -89,8 +88,8 @@ public class Queen extends Piece {
             } else if (start.pieceFile.ordinal() > destination.pieceFile.ordinal() && start.pieceRank > destination.pieceRank) { //third quadrant
                 tempStartFile--;
                 tempStartRank--;
-
-                while (tempStartRank > destination.pieceRank && tempStartFile > destination.pieceFile.ordinal() + 1) {
+    
+                while (tempStartRank > destination.pieceRank && tempStartFile > destination.pieceFile.ordinal()) {
                     if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
                         return false;
                     }
@@ -102,8 +101,8 @@ public class Queen extends Piece {
             } else if (start.pieceFile.ordinal() < destination.pieceFile.ordinal() && start.pieceRank > destination.pieceRank) { //fourth quadrant
                 tempStartFile++;
                 tempStartRank--;
-
-                while (tempStartRank > destination.pieceRank && tempStartFile < destination.pieceFile.ordinal() + 1) {
+    
+                while (tempStartRank > destination.pieceRank && tempStartFile < destination.pieceFile.ordinal() ) {
                     if (board.containsKey(Chess.getPiecePosition(tempStartFile, tempStartRank))) {
                         return false;
                     }
@@ -116,7 +115,6 @@ public class Queen extends Piece {
     
             return true;
         }
-    }
-
+    }    
 
 }
